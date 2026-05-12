@@ -144,12 +144,12 @@ footer a:hover{text-decoration:underline}
   <h1>Como fazer<br><strong>monitoria</strong></h1>
   <p class="hero-sub">Clique em uma etapa para abrir o guia passo a passo.</p>
   <div class="parts-row">
-    <button class="part-btn" onclick="openModal('crono')"><span class="pnum">⏱</span> Cronômetro</button>
+    <button class="part-btn" onclick="openTimer()"><span class="pnum">⏱</span> Cronômetro</button>
     <button class="part-btn" onclick="openModal('parte1')"><span class="pnum">1</span> Parte 1 — 3C Plus</button>
     <button class="part-btn" onclick="openModal('criterios')"><span class="pnum">★</span> Critérios</button>
-    <button class="part-btn" onclick="openModal('parte2')"><span class="pnum">2</span> Parte 2 — Registro</button>
-    <button class="part-btn" onclick="openModal('email')"><span class="pnum">✉</span> Envio de E-mail</button>
     <button class="part-btn" style="background:rgba(255,200,50,.18);border-color:rgba(255,200,50,.35);" onclick="openForm()"><span class="pnum" style="background:rgba(255,200,50,.3);">📋</span> Formulário Manual</button>
+    <button class="part-btn" onclick="openModal('email')"><span class="pnum">✉</span> Envio de E-mail</button>
+    <button class="part-btn" onclick="openModal('planilha')"><span class="pnum">📊</span> Pontos e Planilha</button>
   </div>
 </section>
 
@@ -204,6 +204,90 @@ footer a:hover{text-decoration:underline}
   </div>
 </footer>
 
+<!-- TIMER OVERLAY -->
+<div class="modal-overlay" id="timer-overlay" onclick="closeTimerOnBg(event)">
+  <div class="modal" style="max-width:420px;">
+    <div class="m-top" id="timer-top">
+      <div><div class="m-lbl">Cronômetro de monitoria</div><div class="m-ttl">⏱ Controle de tempo</div></div>
+      <button class="m-close" onclick="closeTimer()">✕</button>
+    </div>
+    <div class="m-body" style="padding:24px 20px;" id="timer-body">
+
+      <!-- NAME INPUT (shown before start) -->
+      <div id="timer-name-screen">
+        <p style="font-size:13px;color:var(--muted);margin-bottom:14px;text-align:center;">Informe seu nome para o relatório final.</p>
+        <div class="form-field" style="margin-bottom:14px;">
+          <label>Seu nome</label>
+          <input type="text" id="timer-name-input" placeholder="Ex: Tamires Souza" style="font-size:15px;text-align:center;">
+        </div>
+        <div class="form-field" style="margin-bottom:0;">
+          <label>Quantidade de monitorias previstas</label>
+          <input type="number" id="timer-qty-input" placeholder="Ex: 5" min="1" max="30" style="font-size:15px;text-align:center;">
+        </div>
+        <div class="tmini" style="margin-top:16px;margin-bottom:0;">
+          <div class="tmc"><div class="tmi">🎯</div><div class="tml">3 monitorias</div><div class="tmv">~22 min</div></div>
+          <div class="tmc"><div class="tmi">⚡</div><div class="tml">6 monitorias</div><div class="tmv">~45 min</div></div>
+          <div class="tmc"><div class="tmi">👑</div><div class="tml">Ref. Jennifer</div><div class="tmv">2h30</div></div>
+        </div>
+        <button onclick="startTimer()" style="width:100%;margin-top:16px;padding:12px;background:var(--g);color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;letter-spacing:.3px;">▶ Iniciar cronômetro</button>
+      </div>
+
+      <!-- RUNNING SCREEN -->
+      <div id="timer-run-screen" style="display:none;text-align:center;">
+        <div id="timer-name-display" style="font-size:13px;font-weight:600;color:var(--faint);margin-bottom:6px;text-transform:uppercase;letter-spacing:.8px;"></div>
+        <div id="timer-clock" style="font-size:64px;font-weight:700;font-family:'DM Mono',monospace;color:var(--g);line-height:1;margin-bottom:4px;">00:00:00</div>
+        <div id="timer-status-label" style="font-size:13px;color:var(--gm);font-weight:500;margin-bottom:20px;">▶ Em andamento</div>
+
+        <!-- pause log -->
+        <div id="timer-log" style="text-align:left;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-bottom:16px;max-height:120px;overflow-y:auto;font-size:12px;color:var(--muted);display:none;"></div>
+
+        <div style="display:flex;gap:10px;">
+          <button id="btn-pause" onclick="togglePause()" style="flex:1;padding:11px;background:var(--ambl);color:var(--amber);border:1px solid #e6a020;border-radius:8px;font-size:14px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;">⏸ Pausar</button>
+          <button onclick="finishTimer()" style="flex:1;padding:11px;background:var(--redl);color:var(--red);border:1px solid #e0a0a0;border-radius:8px;font-size:14px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;">■ Finalizar</button>
+        </div>
+        <p style="font-size:11px;color:var(--faint);margin-top:10px;">Mantenha esta janela aberta durante a monitoria.</p>
+      </div>
+
+      <!-- REPORT SCREEN -->
+      <div id="timer-report-screen" style="display:none;">
+        <div style="text-align:center;margin-bottom:18px;">
+          <div style="font-size:32px;margin-bottom:6px;">✅</div>
+          <div style="font-size:15px;font-weight:600;color:var(--g);">Monitoria finalizada!</div>
+        </div>
+        <div id="report-card" style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+            <div style="background:var(--surface);border-radius:7px;padding:10px;text-align:center;">
+              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--faint);margin-bottom:3px;">Tempo total</div>
+              <div id="rep-total" style="font-size:22px;font-weight:700;font-family:'DM Mono',monospace;color:var(--g);"></div>
+            </div>
+            <div style="background:var(--surface);border-radius:7px;padding:10px;text-align:center;">
+              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--faint);margin-bottom:3px;">Tempo ativo</div>
+              <div id="rep-active" style="font-size:22px;font-weight:700;font-family:'DM Mono',monospace;color:var(--gm);"></div>
+            </div>
+          </div>
+          <div id="rep-details" style="font-size:12.5px;color:var(--muted);line-height:1.9;border-top:1px solid var(--border);padding-top:10px;"></div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button onclick="window.print()" style="flex:1;padding:10px;background:var(--g);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;">🖨 Imprimir relatório</button>
+          <button onclick="resetTimer()" style="flex:1;padding:10px;background:var(--surface);color:var(--muted);border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:'DM Sans',sans-serif;cursor:pointer;">↺ Novo</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+@media print {
+  #timer-overlay { position:static!important;background:none!important;display:block!important;padding:0; }
+  #timer-overlay .modal { max-width:100%!important;box-shadow:none!important;border-radius:0!important; }
+  #timer-overlay .m-top, #timer-overlay .m-close, #timer-name-screen, #timer-run-screen, #btn-pause { display:none!important; }
+  #timer-report-screen { display:block!important; }
+  header,.hero,main,footer,.prog-bar,.top-credit,#overlay,#form-overlay { display:none!important; }
+  #timer-overlay { display:block!important; }
+}
+</style>
+
 <!-- MODAL -->
 <div class="modal-overlay" id="overlay" onclick="closeOnBg(event)">
   <div class="modal" id="modal">
@@ -223,16 +307,7 @@ footer a:hover{text-decoration:underline}
 
 <script>
 const M = {
-crono:{
-  label:'Antes de começar',title:'⏱ Cronômetro de tarefas',
-  steps:[
-    {n:'→',t:'Tempo estimado',h:`<div class="tmini"><div class="tmc"><div class="tmi">🎯</div><div class="tml">3 monitorias</div><div class="tmv">~22 min</div><div class="tms">≈ 7,5 min cada</div></div><div class="tmc"><div class="tmi">⚡</div><div class="tml">6 monitorias</div><div class="tmv">~45 min</div><div class="tms">≈ 7,5 min cada</div></div><div class="tmc"><div class="tmi">👑</div><div class="tml">Ref. Jennifer</div><div class="tmv">2h30</div><div class="tms">20 monitorias</div></div></div><p class="s-p">Registre sua tarefa na plataforma antes de iniciar qualquer monitoria.</p>`},
-    {n:'1',t:'Acesse a plataforma',h:`<p class="s-p"><a href="https://igreenjennifer.github.io/igreen-5w2h/" target="_blank">🔗 igreenjennifer.github.io/igreen-5w2h</a></p><div class="s-cred"><div class="cr"><span class="cl">Login</span><span class="cv">seu e-mail corporativo</span></div><div class="cr"><span class="cl">Senha</span><span class="cv">123456 (padrão)</span></div></div>`},
-    {n:'2',t:'Clique em "Ao Vivo"',h:`<p class="s-p">Após o login, você estará no <strong>Dashboard</strong>. Clique em <span class="hl">Ao Vivo</span> no menu superior.</p>`},
-    {n:'3',t:'Preencha os dados',h:`<div class="s-cred"><div class="cr"><span class="cl">Nome</span><span class="cv">Monitoria</span></div><div class="cr"><span class="cl">Descrição</span><span class="cv">Qtde e nomes dos monitorados</span></div><div class="cr"><span class="cl">Delegado</span><span class="cv">O gestor e seu pleno</span></div><div class="cr"><span class="cl">Categoria</span><span class="cv">Monitoria</span></div></div>`},
-    {n:'4',t:'Iniciar, pausar e finalizar',h:`<p class="s-p">Clique em <span class="hl">+ Adicionar Tarefa</span> e depois em <span class="hl">▶ Fazer</span>.</p><div class="s-tip">⏸ Precisou pausar? Clique em <strong>Pausar</strong> e informe o motivo.</div><p class="s-p" style="margin-top:10px">Ao terminar tudo, clique em <span class="hl">✅ Finalizar</span>.</p>`}
-  ]
-},
+crono:{label:'',title:'',steps:[]},
 parte1:{
   label:'Parte 1 — Sistema 3C+',title:'🔐 Acessar, filtrar e ouvir',
   steps:[
@@ -277,8 +352,34 @@ parte2:{
 email:{
   label:'Etapa final — quando acordado com a liderança',title:'✉️ Envio de e-mail ao colaborador',
   steps:[
-    {n:'1',t:'Para quem enviar',h:`<div class="email-box"><div class="eh"><div class="er"><span class="el">Para:</span><span style="color:var(--g);font-weight:500;font-size:13px">O colaborador em questão</span></div><div class="er"><span class="el">Cc:</span><span style="font-size:13px;color:var(--muted)">Seu gestor e seu pleno</span></div><div class="er"><span class="el">Assunto:</span><span style="font-size:12.5px;color:var(--muted)">Monitoria de Qualidade — [Nome] · [Data]</span></div></div><div class="eb">Olá! Sua monitoria foi realizada 😊<br><br>📎 PDF com a pontuação<br>🎧 Áudio da ligação<br>📋 Imagem dos critérios (16/04/26)</div></div>`},
-    {n:'2',t:'O que anexar',h:`<p class="s-p">Inclua os três itens no e-mail:</p><div class="sbadges" style="margin-top:10px;flex-direction:column;gap:8px"><span class="sb sb-g" style="padding:8px 12px">📎 PDF exportado do iGreen Performance</span><span class="sb sb-g" style="padding:8px 12px">🎧 Áudio da ligação — renomeado com o nome do colaborador</span><span class="sb sb-g" style="padding:8px 12px">📋 Imagem da tabela de critérios (16/04/26)</span></div><div class="s-tip" style="margin-top:12px">📌 Confira os três anexos antes de enviar.</div>`}
+    {n:'1',t:'Para quem enviar',h:`<div class="email-box"><div class="eh"><div class="er"><span class="el">Para:</span><span style="color:var(--g);font-weight:500;font-size:13px">O colaborador em questão</span></div><div class="er"><span class="el">Cc:</span><span style="font-size:13px;color:var(--muted)">Seu gestor e seu pleno</span></div><div class="er"><span class="el">Assunto:</span><span style="font-size:12.5px;color:var(--muted)">Monitoria de Qualidade — [Nome] · [Data]</span></div></div><div class="eb">Olá! Sua monitoria foi realizada 😊<br><br>📎 PDF com a pontuação<br>🎧 Áudio da ligação<br>📋 Imagem dos critérios (segue abaixo)</div></div>`},
+    {n:'2',t:'O que anexar',h:`<p class="s-p" style="margin-bottom:10px">Inclua os três itens no e-mail:</p><div style="display:flex;flex-direction:column;gap:8px"><span class="sb sb-g" style="padding:8px 12px">📎 PDF exportado do iGreen Performance</span><span class="sb sb-g" style="padding:8px 12px">🎧 Áudio da ligação — renomeado com o nome do colaborador</span><span class="sb sb-g" style="padding:8px 12px">📋 Imagem da tabela de critérios (abaixo)</span></div><div class="s-tip" style="margin-top:10px">📌 Confira os três anexos antes de enviar.</div>`},
+    {n:'3',t:'Imagem dos critérios para anexar',h:`<p class="s-p" style="margin-bottom:10px">Salve a tabela abaixo e anexe no e-mail. Tire um print ou use Ctrl+P → Salvar PDF.</p>
+    <table style="width:100%;border-collapse:collapse;font-size:11.5px;">
+      <tr style="background:#c084c8;"><td colspan="3" style="text-align:center;font-weight:700;font-size:13px;padding:8px;color:#fff;">Atual a partir do dia 16/04/26 · 2 semanais</td></tr>
+      <tr style="background:#e9b3ed;"><th style="padding:6px 8px;color:#4a1260;font-size:11px">Nº</th><th style="padding:6px 8px;color:#4a1260;text-align:left">Item</th><th style="padding:6px 8px;color:#4a1260;white-space:nowrap">Peso / -Pen.</th></tr>
+      <tr style="background:#fff"><td style="padding:5px 8px;text-align:center;font-weight:700;color:#6b21a8">1º</td><td style="padding:5px 8px">Abertura e identificação — Se identificar (Nome e empresa)</td><td style="padding:5px 8px;text-align:center;font-weight:600">5 / <span style="color:#b91c1c">-5</span></td></tr>
+      <tr style="background:#fdf4ff"><td style="padding:5px 8px;text-align:center;font-weight:700;color:#6b21a8">2º</td><td style="padding:5px 8px">Comunicação e postura — Clareza na fala e respeito com o cliente</td><td style="padding:5px 8px;text-align:center;font-weight:600">5 / <span style="color:#b91c1c">-5</span></td></tr>
+      <tr style="background:#fff"><td style="padding:5px 8px;text-align:center;font-weight:700;color:#6b21a8">3º</td><td style="padding:5px 8px">Diagnóstico da dívida — Questionar o motivo da dívida</td><td style="padding:5px 8px;text-align:center;font-weight:600">10 / <span style="color:#b91c1c">-10</span></td></tr>
+      <tr style="background:#fdf4ff"><td style="padding:5px 8px;text-align:center;font-weight:700;color:#6b21a8">4º</td><td style="padding:5px 8px">Negociação — Questionar se o cliente possui dúvidas, aplicativo e cite sobre os benefícios (Min 2)</td><td style="padding:5px 8px;text-align:center;font-weight:700;font-size:14px">40 / <span style="color:#b91c1c">-40</span></td></tr>
+      <tr style="background:#fff"><td style="padding:5px 8px;text-align:center;font-weight:700;color:#6b21a8">5º</td><td style="padding:5px 8px">Conformidade — Questionar o motivo do cancelamento</td><td style="padding:5px 8px;text-align:center;font-weight:600">20 / <span style="color:#b91c1c">-20</span></td></tr>
+      <tr style="background:#fdf4ff"><td style="padding:5px 8px;text-align:center;font-weight:700;color:#6b21a8">6º</td><td style="padding:5px 8px">Registros e procedimentos — Classificar corretamente a ligação</td><td style="padding:5px 8px;text-align:center;font-weight:600">10 / <span style="color:#b91c1c">-10</span></td></tr>
+      <tr style="background:#fff"><td style="padding:5px 8px;text-align:center;font-weight:700;color:#6b21a8">7º</td><td style="padding:5px 8px">Encerramento — Concluir o atendimento (Agradecimento e cordialidade)</td><td style="padding:5px 8px;text-align:center;font-weight:600">10 / <span style="color:#b91c1c">-10</span></td></tr>
+      <tr style="background:#e9b3ed"><td colspan="2" style="padding:7px 8px;text-align:right;font-weight:700;color:#4a1260">Total</td><td style="padding:7px 8px;text-align:center;font-weight:700;color:#166534">100 / <span style="color:#b91c1c">-100</span></td></tr>
+      <tr style="background:#1e3a5f"><td colspan="3" style="text-align:center;font-weight:700;font-size:12px;padding:8px;color:#fff">⚠️ Erros críticos — Monitoria ZERADA</td></tr>
+      <tr style="background:#f8f8f8;border-bottom:1px solid #e5e7eb"><td colspan="3" style="padding:5px 8px;font-size:11px">Passou informação incorreta ao cliente — qualquer informação incompleta ou errada</td></tr>
+      <tr style="background:#fff;border-bottom:1px solid #e5e7eb"><td colspan="3" style="padding:5px 8px;font-size:11px">Agiu de forma ríspida ou ameaçadora — ser agressivo</td></tr>
+      <tr style="background:#f8f8f8;border-bottom:1px solid #e5e7eb"><td colspan="3" style="padding:5px 8px;font-size:11px">Linguagem agressiva — usar linguajar agressivo</td></tr>
+      <tr style="background:#fff;border-bottom:1px solid #e5e7eb"><td colspan="3" style="padding:5px 8px;font-size:11px">Retenção de ligação — segurar a ligação até dar o tempo legível para cota</td></tr>
+      <tr style="background:#f8f8f8"><td colspan="3" style="padding:5px 8px;font-size:11px">Contra-argumentação de cancelamento fora da regra</td></tr>
+    </table>`}
+  ]
+},
+planilha:{
+  label:'Após todas as monitorias',title:'📊 Pontos, planilha e print',
+  steps:[
+    {n:'1',t:'Registre os pontos de cada colaborador',h:`<p class="s-p">Ao terminar todas as monitorias do dia, anote a pontuação final de cada colaborador:</p><div class="s-cred" style="margin-top:10px"><div class="cr"><span class="cl" style="min-width:120px">Colaborador</span><span class="cv">Nome do agente avaliado</span></div><div class="cr"><span class="cl" style="min-width:120px">Pontuação</span><span class="cv">Ex: 80 pts — Bom</span></div><div class="cr"><span class="cl" style="min-width:120px">Protocolo</span><span class="cv">Número da ligação avaliada</span></div><div class="cr"><span class="cl" style="min-width:120px">Observação</span><span class="cv">Principal ponto de melhoria</span></div></div><div class="s-tip" style="margin-top:10px">📋 Use o Formulário Manual (botão amarelo) para registrar se a plataforma estiver fora do ar.</div>`},
+    {n:'2',t:'Envie o print no Teams para o pleno e gestor',h:`<p class="s-p">Abra o <strong>Microsoft Teams</strong> e envie a imagem da planilha diretamente na conversa com seu gestor e pleno:</p><div class="email-box" style="margin-top:10px"><div class="eh"><div class="er"><span class="el">Para:</span><span style="font-size:13px;color:var(--g);font-weight:500">Gestor e Pleno — Teams</span></div></div><div class="eb" style="font-size:13px">Bom dia/tarde! Seguem os pontos de cada colaborador referente às monitorias do dia [data].<br><br>📊 [print da planilha]<br><br>Qualquer dúvida, estou à disposição!</div></div><div class="s-tip" style="margin-top:10px">📌 Envie sempre no mesmo dia em que as monitorias foram realizadas.</div>`}
   ]
 }
 };
@@ -312,6 +413,101 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowLeft')go(-1);
 });
 
+// ── TIMER ────────────────────────────────────────────────────────
+let timerInterval=null, timerStart=null, timerElapsed=0, timerPaused=false;
+let pauseStart=null, pauseTotal=0, pauseLog=[], timerFinishTime=null;
+
+function openTimer(){
+  resetTimerState();
+  document.getElementById('timer-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeTimer(){document.getElementById('timer-overlay').classList.remove('open');document.body.style.overflow=''}
+function closeTimerOnBg(e){if(e.target===document.getElementById('timer-overlay'))closeTimer()}
+
+function resetTimerState(){
+  clearInterval(timerInterval);timerInterval=null;timerStart=null;timerElapsed=0;
+  timerPaused=false;pauseStart=null;pauseTotal=0;pauseLog=[];timerFinishTime=null;
+  document.getElementById('timer-name-screen').style.display='';
+  document.getElementById('timer-run-screen').style.display='none';
+  document.getElementById('timer-report-screen').style.display='none';
+  document.getElementById('timer-name-input').value='';
+  document.getElementById('timer-qty-input').value='';
+  document.getElementById('timer-log').style.display='none';
+  document.getElementById('timer-log').innerHTML='';
+  document.getElementById('timer-clock').style.color='var(--g)';
+  document.getElementById('timer-status-label').textContent='▶ Em andamento';
+  document.getElementById('btn-pause').textContent='⏸ Pausar';
+}
+
+function resetTimer(){resetTimerState()}
+
+function startTimer(){
+  const name=document.getElementById('timer-name-input').value.trim();
+  if(!name){document.getElementById('timer-name-input').focus();return;}
+  timerStart=new Date();timerElapsed=0;timerPaused=false;pauseTotal=0;pauseLog=[];
+  document.getElementById('timer-name-screen').style.display='none';
+  document.getElementById('timer-run-screen').style.display='';
+  document.getElementById('timer-name-display').textContent=name;
+  timerInterval=setInterval(tickTimer,500);
+}
+
+function tickTimer(){
+  if(timerPaused)return;
+  timerElapsed=Math.floor((Date.now()-timerStart.getTime()-pauseTotal)/1000);
+  document.getElementById('timer-clock').textContent=fmtSec(timerElapsed);
+}
+
+function togglePause(){
+  if(!timerPaused){
+    timerPaused=true;pauseStart=Date.now();
+    document.getElementById('btn-pause').textContent='▶ Retomar';
+    document.getElementById('timer-clock').style.color='var(--amber)';
+    document.getElementById('timer-status-label').textContent='⏸ Pausado';
+    document.getElementById('timer-status-label').style.color='var(--amber)';
+  } else {
+    const dur=Date.now()-pauseStart;pauseTotal+=dur;
+    pauseLog.push({at:fmtSec(timerElapsed),dur:fmtSec(Math.floor(dur/1000))});
+    timerPaused=false;pauseStart=null;
+    document.getElementById('btn-pause').textContent='⏸ Pausar';
+    document.getElementById('timer-clock').style.color='var(--g)';
+    document.getElementById('timer-status-label').textContent='▶ Em andamento';
+    document.getElementById('timer-status-label').style.color='var(--gm)';
+    // update log display
+    const log=document.getElementById('timer-log');
+    log.style.display='';
+    log.innerHTML=pauseLog.map((p,i)=>`<div>Pausa ${i+1}: iniciou em ${p.at} · durou ${p.dur}</div>`).join('');
+    log.scrollTop=log.scrollHeight;
+  }
+}
+
+function finishTimer(){
+  clearInterval(timerInterval);timerFinishTime=new Date();
+  if(timerPaused){const dur=Date.now()-pauseStart;pauseTotal+=dur;pauseLog.push({at:fmtSec(timerElapsed),dur:fmtSec(Math.floor(dur/1000))});}
+  const totalSec=Math.floor((timerFinishTime-timerStart)/1000);
+  const activeSec=totalSec-Math.floor(pauseTotal/1000);
+  const name=document.getElementById('timer-name-display').textContent;
+  const qty=document.getElementById('timer-qty-input').value||'—';
+  const now=timerFinishTime.toLocaleString('pt-BR');
+  document.getElementById('rep-total').textContent=fmtSec(totalSec);
+  document.getElementById('rep-active').textContent=fmtSec(activeSec);
+  document.getElementById('rep-details').innerHTML=
+    `<div><strong>Responsável:</strong> ${name}</div>`+
+    `<div><strong>Monitorias previstas:</strong> ${qty}</div>`+
+    `<div><strong>Início:</strong> ${timerStart.toLocaleTimeString('pt-BR')}</div>`+
+    `<div><strong>Fim:</strong> ${timerFinishTime.toLocaleTimeString('pt-BR')}</div>`+
+    `<div><strong>Pausas:</strong> ${pauseLog.length}x · total pausado: ${fmtSec(Math.floor(pauseTotal/1000))}</div>`+
+    (pauseLog.length?`<div style="margin-top:4px;font-size:11px;color:var(--faint)">${pauseLog.map((p,i)=>`Pausa ${i+1}: ${p.at} (${p.dur})`).join(' · ')}</div>`:'')+
+    `<div style="margin-top:6px;font-size:11px;color:var(--faint)">Gerado em: ${now}</div>`;
+  document.getElementById('timer-run-screen').style.display='none';
+  document.getElementById('timer-report-screen').style.display='';
+}
+
+function fmtSec(s){
+  const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sec=s%60;
+  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+}
+
 const pb=document.getElementById('prog');
 window.addEventListener('scroll',()=>{const t=document.body.scrollHeight-window.innerHeight;pb.style.width=(t>0?(window.scrollY/t)*100:0)+'%'});
 </script>
@@ -330,7 +526,10 @@ window.addEventListener('scroll',()=>{const t=document.body.scrollHeight-window.
 
       <div id="form-entries"></div>
 
-      <button onclick="addEntry()" style="width:100%;padding:10px;background:var(--g);color:#fff;border:none;border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;margin-top:4px;">+ Adicionar monitoria</button>
+      <div style="background:var(--gl);border:1px solid var(--gm);border-radius:8px;padding:12px 14px;margin-top:12px;">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--g);margin-bottom:6px;">📊 Após preencher</div>
+        <p style="font-size:13px;color:var(--muted);line-height:1.65;">Registre os pontos de cada colaborador na <strong>planilha de monitorias</strong> que foi enviada. Depois tire um print da planilha e envie para o seu <strong>gestor e pleno pelo Teams</strong>.</p>
+      </div>
 
       <div style="display:flex;gap:10px;margin-top:12px;">
         <button onclick="window.print()" style="flex:1;padding:10px;background:#7a5800;color:#fff;border:none;border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;">🖨 Imprimir / Salvar PDF</button>
