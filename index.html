@@ -204,87 +204,60 @@ footer a:hover{text-decoration:underline}
   </div>
 </footer>
 
-<!-- TIMER OVERLAY -->
-<div class="modal-overlay" id="timer-overlay" onclick="closeTimerOnBg(event)">
-  <div class="modal" style="max-width:420px;">
-    <div class="m-top" id="timer-top">
-      <div><div class="m-lbl">Cronômetro de monitoria</div><div class="m-ttl">⏱ Controle de tempo</div></div>
-      <button class="m-close" onclick="closeTimer()">✕</button>
-    </div>
-    <div class="m-body" style="padding:24px 20px;" id="timer-body">
+<!-- TIMER WIDGET (fixed, always visible) -->
+<div id="tw" style="display:none;position:fixed;bottom:20px;right:20px;z-index:500;font-family:'DM Sans',sans-serif;">
 
-      <!-- NAME INPUT (shown before start) -->
-      <div id="timer-name-screen">
-        <p style="font-size:13px;color:var(--muted);margin-bottom:14px;text-align:center;">Informe seu nome para o relatório final.</p>
-        <div class="form-field" style="margin-bottom:14px;">
-          <label>Seu nome</label>
-          <input type="text" id="timer-name-input" placeholder="Ex: Tamires Souza" style="font-size:15px;text-align:center;">
-        </div>
-        <div class="form-field" style="margin-bottom:0;">
-          <label>Quantidade de monitorias previstas</label>
-          <input type="number" id="timer-qty-input" placeholder="Ex: 5" min="1" max="30" style="font-size:15px;text-align:center;">
-        </div>
-        <div class="tmini" style="margin-top:16px;margin-bottom:0;">
-          <div class="tmc"><div class="tmi">🎯</div><div class="tml">3 monitorias</div><div class="tmv">~22 min</div></div>
-          <div class="tmc"><div class="tmi">⚡</div><div class="tml">6 monitorias</div><div class="tmv">~45 min</div></div>
-          <div class="tmc"><div class="tmi">👑</div><div class="tml">Ref. Jennifer</div><div class="tmv">2h30</div></div>
-        </div>
-        <button onclick="startTimer()" style="width:100%;margin-top:16px;padding:12px;background:var(--g);color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;letter-spacing:.3px;">▶ Iniciar cronômetro</button>
-      </div>
-
-      <!-- RUNNING SCREEN -->
-      <div id="timer-run-screen" style="display:none;text-align:center;">
-        <div id="timer-name-display" style="font-size:13px;font-weight:600;color:var(--faint);margin-bottom:6px;text-transform:uppercase;letter-spacing:.8px;"></div>
-        <div id="timer-clock" style="font-size:64px;font-weight:700;font-family:'DM Mono',monospace;color:var(--g);line-height:1;margin-bottom:4px;">00:00:00</div>
-        <div id="timer-status-label" style="font-size:13px;color:var(--gm);font-weight:500;margin-bottom:20px;">▶ Em andamento</div>
-
-        <!-- pause log -->
-        <div id="timer-log" style="text-align:left;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-bottom:16px;max-height:120px;overflow-y:auto;font-size:12px;color:var(--muted);display:none;"></div>
-
-        <div style="display:flex;gap:10px;">
-          <button id="btn-pause" onclick="togglePause()" style="flex:1;padding:11px;background:var(--ambl);color:var(--amber);border:1px solid #e6a020;border-radius:8px;font-size:14px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;">⏸ Pausar</button>
-          <button onclick="finishTimer()" style="flex:1;padding:11px;background:var(--redl);color:var(--red);border:1px solid #e0a0a0;border-radius:8px;font-size:14px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;">■ Finalizar</button>
-        </div>
-        <p style="font-size:11px;color:var(--faint);margin-top:10px;">Mantenha esta janela aberta durante a monitoria.</p>
-      </div>
-
-      <!-- REPORT SCREEN -->
-      <div id="timer-report-screen" style="display:none;">
-        <div style="text-align:center;margin-bottom:18px;">
-          <div style="font-size:32px;margin-bottom:6px;">✅</div>
-          <div style="font-size:15px;font-weight:600;color:var(--g);">Monitoria finalizada!</div>
-        </div>
-        <div id="report-card" style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
-            <div style="background:var(--surface);border-radius:7px;padding:10px;text-align:center;">
-              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--faint);margin-bottom:3px;">Tempo total</div>
-              <div id="rep-total" style="font-size:22px;font-weight:700;font-family:'DM Mono',monospace;color:var(--g);"></div>
-            </div>
-            <div style="background:var(--surface);border-radius:7px;padding:10px;text-align:center;">
-              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--faint);margin-bottom:3px;">Tempo ativo</div>
-              <div id="rep-active" style="font-size:22px;font-weight:700;font-family:'DM Mono',monospace;color:var(--gm);"></div>
-            </div>
-          </div>
-          <div id="rep-details" style="font-size:12.5px;color:var(--muted);line-height:1.9;border-top:1px solid var(--border);padding-top:10px;"></div>
-        </div>
-        <div style="display:flex;gap:8px;">
-          <button onclick="window.print()" style="flex:1;padding:10px;background:var(--g);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;">🖨 Imprimir relatório</button>
-          <button onclick="resetTimer()" style="flex:1;padding:10px;background:var(--surface);color:var(--muted);border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:'DM Sans',sans-serif;cursor:pointer;">↺ Novo</button>
-        </div>
-      </div>
-
+  <!-- SETUP CARD -->
+  <div id="tw-setup" style="background:var(--white);border:1px solid var(--border);border-radius:14px;box-shadow:0 8px 28px rgba(0,0,0,.18);padding:16px;width:240px;">
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--faint);margin-bottom:10px;">⏱ Cronômetro</div>
+    <input id="tw-name" type="text" placeholder="Seu nome" style="width:100%;font-size:13px;padding:7px 10px;border:1px solid var(--border);border-radius:7px;background:var(--surface);font-family:'DM Sans',sans-serif;margin-bottom:8px;outline:none;">
+    <div style="display:flex;gap:8px;">
+      <button onclick="twBegin()" style="flex:1;padding:8px;background:var(--g);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;">▶ Iniciar</button>
+      <button onclick="twClose()" style="padding:8px 10px;background:var(--surface);color:var(--muted);border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:'DM Sans',sans-serif;cursor:pointer;">✕</button>
     </div>
   </div>
+
+  <!-- RUNNING CARD -->
+  <div id="tw-run" style="display:none;background:var(--g);border-radius:14px;box-shadow:0 8px 28px rgba(0,0,0,.22);padding:12px 14px;width:220px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+      <span id="tw-name-lbl" style="font-size:11px;font-weight:600;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:130px;"></span>
+      <span id="tw-status-dot" style="font-size:10px;color:rgba(255,255,255,.8);">● Em andamento</span>
+    </div>
+    <div id="tw-clock" style="font-size:36px;font-weight:700;font-family:'DM Mono',monospace;color:#fff;line-height:1;margin-bottom:10px;letter-spacing:1px;">00:00:00</div>
+    <div style="display:flex;gap:6px;">
+      <button id="tw-btn-pause" onclick="twTogglePause()" style="flex:1;padding:6px;background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:7px;font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;">⏸ Pausar</button>
+      <button onclick="twFinish()" style="flex:1;padding:6px;background:rgba(220,50,50,.7);color:#fff;border:none;border-radius:7px;font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;">■ Finalizar</button>
+    </div>
+  </div>
+
+  <!-- REPORT CARD -->
+  <div id="tw-report" style="display:none;background:var(--white);border:1px solid var(--border);border-radius:14px;box-shadow:0 8px 28px rgba(0,0,0,.18);padding:14px;width:240px;">
+    <div style="font-size:12px;font-weight:700;color:var(--g);margin-bottom:10px;">✅ Monitoria finalizada</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+      <div style="background:var(--surface);border-radius:7px;padding:8px;text-align:center;">
+        <div style="font-size:10px;color:var(--faint);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px;">Total</div>
+        <div id="tw-rep-total" style="font-size:18px;font-weight:700;font-family:'DM Mono',monospace;color:var(--g);"></div>
+      </div>
+      <div style="background:var(--surface);border-radius:7px;padding:8px;text-align:center;">
+        <div style="font-size:10px;color:var(--faint);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px;">Ativo</div>
+        <div id="tw-rep-active" style="font-size:18px;font-weight:700;font-family:'DM Mono',monospace;color:var(--gm);"></div>
+      </div>
+    </div>
+    <div id="tw-rep-detail" style="font-size:11.5px;color:var(--muted);line-height:1.8;border-top:1px solid var(--border);padding-top:8px;margin-bottom:10px;"></div>
+    <div style="display:flex;gap:6px;">
+      <button onclick="window.print()" style="flex:1;padding:7px;background:var(--g);color:#fff;border:none;border-radius:7px;font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;">🖨 Print</button>
+      <button onclick="twReset()" style="flex:1;padding:7px;background:var(--surface);color:var(--muted);border:1px solid var(--border);border-radius:7px;font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;">↺ Novo</button>
+    </div>
+  </div>
+
 </div>
 
 <style>
 @media print {
-  #timer-overlay { position:static!important;background:none!important;display:block!important;padding:0; }
-  #timer-overlay .modal { max-width:100%!important;box-shadow:none!important;border-radius:0!important; }
-  #timer-overlay .m-top, #timer-overlay .m-close, #timer-name-screen, #timer-run-screen, #btn-pause { display:none!important; }
-  #timer-report-screen { display:block!important; }
+  #tw { position:static!important;display:block!important; }
+  #tw-setup,#tw-run,#tw-btn-pause { display:none!important; }
+  #tw-report { display:block!important; }
   header,.hero,main,footer,.prog-bar,.top-credit,#overlay,#form-overlay { display:none!important; }
-  #timer-overlay { display:block!important; }
 }
 </style>
 
@@ -413,97 +386,86 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowLeft')go(-1);
 });
 
-// ── TIMER ────────────────────────────────────────────────────────
-let timerInterval=null, timerStart=null, timerElapsed=0, timerPaused=false;
-let pauseStart=null, pauseTotal=0, pauseLog=[], timerFinishTime=null;
+// ── TIMER WIDGET ─────────────────────────────────────────────────
+let twInterval=null,twStartTime=null,twElapsed=0,twPaused=false;
+let twPauseStart=null,twPauseTotal=0,twPauseLog=[],twFinishTime=null;
 
 function openTimer(){
-  resetTimerState();
-  document.getElementById('timer-overlay').classList.add('open');
-  document.body.style.overflow='hidden';
+  twReset();
+  document.getElementById('tw').style.display='block';
+  document.getElementById('tw-name').focus();
 }
-function closeTimer(){document.getElementById('timer-overlay').classList.remove('open');document.body.style.overflow=''}
-function closeTimerOnBg(e){if(e.target===document.getElementById('timer-overlay'))closeTimer()}
+function twClose(){document.getElementById('tw').style.display='none';clearInterval(twInterval);}
 
-function resetTimerState(){
-  clearInterval(timerInterval);timerInterval=null;timerStart=null;timerElapsed=0;
-  timerPaused=false;pauseStart=null;pauseTotal=0;pauseLog=[];timerFinishTime=null;
-  document.getElementById('timer-name-screen').style.display='';
-  document.getElementById('timer-run-screen').style.display='none';
-  document.getElementById('timer-report-screen').style.display='none';
-  document.getElementById('timer-name-input').value='';
-  document.getElementById('timer-qty-input').value='';
-  document.getElementById('timer-log').style.display='none';
-  document.getElementById('timer-log').innerHTML='';
-  document.getElementById('timer-clock').style.color='var(--g)';
-  document.getElementById('timer-status-label').textContent='▶ Em andamento';
-  document.getElementById('btn-pause').textContent='⏸ Pausar';
+function twBegin(){
+  const name=document.getElementById('tw-name').value.trim();
+  if(!name){document.getElementById('tw-name').focus();return;}
+  twStartTime=new Date();twElapsed=0;twPaused=false;twPauseTotal=0;twPauseLog=[];
+  document.getElementById('tw-setup').style.display='none';
+  document.getElementById('tw-run').style.display='block';
+  document.getElementById('tw-report').style.display='none';
+  document.getElementById('tw-name-lbl').textContent=name;
+  document.getElementById('tw-status-dot').textContent='● Em andamento';
+  document.getElementById('tw-clock').style.opacity='1';
+  twInterval=setInterval(twTick,500);
 }
 
-function resetTimer(){resetTimerState()}
-
-function startTimer(){
-  const name=document.getElementById('timer-name-input').value.trim();
-  if(!name){document.getElementById('timer-name-input').focus();return;}
-  timerStart=new Date();timerElapsed=0;timerPaused=false;pauseTotal=0;pauseLog=[];
-  document.getElementById('timer-name-screen').style.display='none';
-  document.getElementById('timer-run-screen').style.display='';
-  document.getElementById('timer-name-display').textContent=name;
-  timerInterval=setInterval(tickTimer,500);
+function twTick(){
+  if(twPaused)return;
+  twElapsed=Math.floor((Date.now()-twStartTime.getTime()-twPauseTotal)/1000);
+  document.getElementById('tw-clock').textContent=twFmt(twElapsed);
 }
 
-function tickTimer(){
-  if(timerPaused)return;
-  timerElapsed=Math.floor((Date.now()-timerStart.getTime()-pauseTotal)/1000);
-  document.getElementById('timer-clock').textContent=fmtSec(timerElapsed);
-}
-
-function togglePause(){
-  if(!timerPaused){
-    timerPaused=true;pauseStart=Date.now();
-    document.getElementById('btn-pause').textContent='▶ Retomar';
-    document.getElementById('timer-clock').style.color='var(--amber)';
-    document.getElementById('timer-status-label').textContent='⏸ Pausado';
-    document.getElementById('timer-status-label').style.color='var(--amber)';
+function twTogglePause(){
+  if(!twPaused){
+    twPaused=true;twPauseStart=Date.now();
+    document.getElementById('tw-btn-pause').textContent='▶ Retomar';
+    document.getElementById('tw-btn-pause').style.background='rgba(255,200,50,.35)';
+    document.getElementById('tw-status-dot').textContent='⏸ Pausado';
+    document.getElementById('tw-clock').style.opacity='.5';
   } else {
-    const dur=Date.now()-pauseStart;pauseTotal+=dur;
-    pauseLog.push({at:fmtSec(timerElapsed),dur:fmtSec(Math.floor(dur/1000))});
-    timerPaused=false;pauseStart=null;
-    document.getElementById('btn-pause').textContent='⏸ Pausar';
-    document.getElementById('timer-clock').style.color='var(--g)';
-    document.getElementById('timer-status-label').textContent='▶ Em andamento';
-    document.getElementById('timer-status-label').style.color='var(--gm)';
-    // update log display
-    const log=document.getElementById('timer-log');
-    log.style.display='';
-    log.innerHTML=pauseLog.map((p,i)=>`<div>Pausa ${i+1}: iniciou em ${p.at} · durou ${p.dur}</div>`).join('');
-    log.scrollTop=log.scrollHeight;
+    const d=Date.now()-twPauseStart;twPauseTotal+=d;
+    twPauseLog.push({at:twFmt(twElapsed),dur:twFmt(Math.floor(d/1000))});
+    twPaused=false;twPauseStart=null;
+    document.getElementById('tw-btn-pause').textContent='⏸ Pausar';
+    document.getElementById('tw-btn-pause').style.background='rgba(255,255,255,.18)';
+    document.getElementById('tw-status-dot').textContent='● Em andamento';
+    document.getElementById('tw-clock').style.opacity='1';
   }
 }
 
-function finishTimer(){
-  clearInterval(timerInterval);timerFinishTime=new Date();
-  if(timerPaused){const dur=Date.now()-pauseStart;pauseTotal+=dur;pauseLog.push({at:fmtSec(timerElapsed),dur:fmtSec(Math.floor(dur/1000))});}
-  const totalSec=Math.floor((timerFinishTime-timerStart)/1000);
-  const activeSec=totalSec-Math.floor(pauseTotal/1000);
-  const name=document.getElementById('timer-name-display').textContent;
-  const qty=document.getElementById('timer-qty-input').value||'—';
-  const now=timerFinishTime.toLocaleString('pt-BR');
-  document.getElementById('rep-total').textContent=fmtSec(totalSec);
-  document.getElementById('rep-active').textContent=fmtSec(activeSec);
-  document.getElementById('rep-details').innerHTML=
-    `<div><strong>Responsável:</strong> ${name}</div>`+
-    `<div><strong>Monitorias previstas:</strong> ${qty}</div>`+
-    `<div><strong>Início:</strong> ${timerStart.toLocaleTimeString('pt-BR')}</div>`+
-    `<div><strong>Fim:</strong> ${timerFinishTime.toLocaleTimeString('pt-BR')}</div>`+
-    `<div><strong>Pausas:</strong> ${pauseLog.length}x · total pausado: ${fmtSec(Math.floor(pauseTotal/1000))}</div>`+
-    (pauseLog.length?`<div style="margin-top:4px;font-size:11px;color:var(--faint)">${pauseLog.map((p,i)=>`Pausa ${i+1}: ${p.at} (${p.dur})`).join(' · ')}</div>`:'')+
-    `<div style="margin-top:6px;font-size:11px;color:var(--faint)">Gerado em: ${now}</div>`;
-  document.getElementById('timer-run-screen').style.display='none';
-  document.getElementById('timer-report-screen').style.display='';
+function twFinish(){
+  clearInterval(twInterval);twFinishTime=new Date();
+  if(twPaused){const d=Date.now()-twPauseStart;twPauseTotal+=d;twPauseLog.push({at:twFmt(twElapsed),dur:twFmt(Math.floor(d/1000))});}
+  const totalSec=Math.floor((twFinishTime-twStartTime)/1000);
+  const activeSec=totalSec-Math.floor(twPauseTotal/1000);
+  const name=document.getElementById('tw-name-lbl').textContent;
+  document.getElementById('tw-rep-total').textContent=twFmt(totalSec);
+  document.getElementById('tw-rep-active').textContent=twFmt(activeSec);
+  document.getElementById('tw-rep-detail').innerHTML=
+    `<div><strong>Nome:</strong> ${name}</div>`+
+    `<div><strong>Início:</strong> ${twStartTime.toLocaleTimeString('pt-BR')}</div>`+
+    `<div><strong>Fim:</strong> ${twFinishTime.toLocaleTimeString('pt-BR')}</div>`+
+    `<div><strong>Pausas:</strong> ${twPauseLog.length}x · ${twFmt(Math.floor(twPauseTotal/1000))} pausado</div>`+
+    `<div style="font-size:10.5px;color:var(--faint);margin-top:2px">${twFinishTime.toLocaleDateString('pt-BR')}</div>`;
+  document.getElementById('tw-run').style.display='none';
+  document.getElementById('tw-report').style.display='block';
 }
 
-function fmtSec(s){
+function twReset(){
+  clearInterval(twInterval);twInterval=null;twStartTime=null;twElapsed=0;
+  twPaused=false;twPauseStart=null;twPauseTotal=0;twPauseLog=[];twFinishTime=null;
+  document.getElementById('tw-setup').style.display='block';
+  document.getElementById('tw-run').style.display='none';
+  document.getElementById('tw-report').style.display='none';
+  document.getElementById('tw-name').value='';
+  document.getElementById('tw-clock').textContent='00:00:00';
+  document.getElementById('tw-clock').style.opacity='1';
+  document.getElementById('tw-btn-pause').textContent='⏸ Pausar';
+  document.getElementById('tw-btn-pause').style.background='rgba(255,255,255,.18)';
+}
+
+function twFmt(s){
   const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sec=s%60;
   return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
 }
