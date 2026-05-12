@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual de Monitoria — 3C Plus</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --g:#1e6b2e;--gm:#2e9e47;--gl:#ccebd5;--gx:#e8f5e2;
+  --amber:#9a6012;--ambl:#fef3dc;
+  --red:#b03030;--redl:#fef2f2;
+  --txt:#1a1a18;--muted:#5a5955;--faint:#8a8884;
+  --border:#b8ddc2;--surface:#e8f5e2;--white:#fff;
+  --radius:12px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--surface);color:var(--txt);font-size:15px;line-height:1.65;min-height:100vh}
+.top-credit{background:#1a4d0e;color:rgba(255,255,255,.7);text-align:center;font-size:11px;padding:6px 1rem;line-height:1.7}
+.top-credit span{color:rgba(255,255,255,.45);font-size:10.5px}
+header{background:var(--g);position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(30,107,46,.22)}
+.header-inner{max-width:860px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-badge{background:rgba(255,255,255,.18);color:#fff;font-size:13px;font-weight:600;padding:3px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.25)}
+.logo-title{color:rgba(255,255,255,.88);font-size:14px}
+.header-tag{background:rgba(255,255,255,.13);color:rgba(255,255,255,.85);font-size:11px;padding:3px 10px;border-radius:20px;border:1px solid rgba(255,255,255,.2);letter-spacing:.5px;text-transform:uppercase;font-weight:500}
+.hero{background:var(--g);padding:3rem 2rem 3.5rem;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 120%,rgba(46,158,71,.35) 0%,transparent 70%);pointer-events:none}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:.8rem;animation:fadeUp .5s ease both}
+.hero-eyebrow span{display:inline-block;width:20px;height:1px;background:rgba(255,255,255,.4)}
+.hero h1{font-size:clamp(1.8rem,5vw,2.8rem);font-weight:300;color:#fff;line-height:1.15;margin-bottom:.6rem;letter-spacing:-.5px;animation:fadeUp .5s .1s ease both}
+.hero h1 strong{font-weight:600}
+.hero-sub{color:rgba(255,255,255,.65);font-size:14px;max-width:440px;margin:0 auto 2rem;animation:fadeUp .5s .2s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.parts-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;animation:fadeUp .5s .3s ease both}
+.part-btn{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);color:rgba(255,255,255,.92);border:1px solid rgba(255,255,255,.22);border-radius:10px;padding:10px 18px;font-size:14px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:background .2s,border-color .2s,transform .1s}
+.part-btn:hover{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.4);transform:translateY(-2px)}
+.part-btn:active{transform:scale(.97)}
+.part-btn .pnum{background:rgba(255,255,255,.2);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+main{max-width:860px;margin:0 auto;padding:3rem 2rem 5rem}
+.crit-wrap{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:2rem}
+.crit-table{width:100%;border-collapse:collapse;font-size:13px}
+.crit-table th{background:var(--g);color:#fff;font-weight:600;padding:10px 12px;text-align:left}
+.crit-table td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.crit-table tbody tr:last-child td{border-bottom:none}
+.crit-table tbody tr:hover{background:var(--surface)}
+.crit-table tfoot td{background:var(--surface);border-top:2px solid var(--border);font-weight:700}
+.num-c{text-align:center;font-weight:700;color:var(--g);font-size:13px}
+.peso-c{text-align:center;font-weight:600;color:var(--g);white-space:nowrap}
+.pen-c{text-align:center;font-weight:600;color:var(--red);white-space:nowrap}
+.row-hi td{background:#f0faf3}
+.obrig{color:#c0390a;font-weight:600}
+.crit-list{list-style:none;padding:0;display:flex;flex-direction:column;gap:3px}
+.crit-list li::before{content:'• ';color:var(--gm);font-weight:700}
+.erros-hdr{background:#7a1c1c;color:#fff;font-size:14px;font-weight:600;padding:11px 14px}
+.erros-thead th{background:#9e2828!important}
+footer{text-align:center;padding:2rem;font-size:12px;color:var(--faint);border-top:1px solid var(--border);max-width:860px;margin:0 auto}
+.foot-badge{display:inline-flex;align-items:center;gap:6px;background:var(--gl);color:var(--g);font-size:12px;font-weight:500;padding:4px 12px;border-radius:20px;margin-bottom:10px}
+.foot-credit{margin-top:12px;padding-top:10px;border-top:1px solid var(--border);font-size:11px;color:var(--faint);line-height:1.7}
+.foot-credit span{font-size:10.5px;color:#aaa}
+footer a{color:var(--gm);text-decoration:none}
+footer a:hover{text-decoration:underline}
+.prog-bar{position:fixed;top:0;left:0;width:0%;height:3px;background:var(--gm);z-index:500;transition:width .1s}
+
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:400;display:none;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.open{display:flex}
+.modal{background:var(--white);border-radius:16px;width:100%;max-width:500px;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 24px 64px rgba(0,0,0,.28);animation:mIn .22s ease}
+@keyframes mIn{from{opacity:0;transform:scale(.94) translateY(14px)}to{opacity:1;transform:none}}
+.m-top{background:var(--g);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;border-radius:16px 16px 0 0;flex-shrink:0}
+.m-lbl{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:2px}
+.m-ttl{font-size:15px;font-weight:500;color:#fff}
+.m-close{background:rgba(255,255,255,.15);border:none;color:#fff;font-size:17px;width:30px;height:30px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0}
+.m-close:hover{background:rgba(255,255,255,.3)}
+.m-dots{display:flex;gap:5px;align-items:center;padding:12px 20px 0;flex-shrink:0;flex-wrap:wrap}
+.mdot{width:8px;height:8px;border-radius:50%;background:var(--border);cursor:pointer;transition:background .2s,transform .2s}
+.mdot.done{background:var(--gl)}
+.mdot.active{background:var(--gm);transform:scale(1.45)}
+.m-body{flex:1;overflow-y:auto;padding:16px 20px}
+.s-counter{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--faint);margin-bottom:5px}
+.s-head{font-size:15px;font-weight:600;color:var(--txt);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.snum{width:26px;height:26px;border-radius:50%;background:var(--gl);color:var(--g);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.s-p{font-size:14px;color:var(--muted);line-height:1.7}
+.s-p a{color:var(--gm);font-weight:500}
+.s-tip{background:var(--ambl);border-left:3px solid #d4800f;border-radius:0 6px 6px 0;padding:9px 12px;margin-top:10px;font-size:13px;color:var(--amber);line-height:1.5}
+.s-cred{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-top:10px;display:flex;flex-direction:column;gap:6px}
+.cr{display:flex;align-items:flex-start;gap:8px;font-size:13px}
+.cl{color:var(--faint);min-width:68px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;padding-top:3px}
+.cv{font-family:'DM Mono',monospace;font-size:12px;background:var(--white);border:1px solid var(--border);border-radius:4px;padding:2px 8px;color:var(--txt)}
+.sbadges{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.sb{font-size:12px;font-weight:500;padding:3px 9px;border-radius:5px}
+.sb-g{background:var(--gl);color:var(--g)}
+.sb-a{background:var(--ambl);color:var(--amber)}
+.sb-r{background:var(--redl);color:var(--red)}
+.hl{background:var(--gl);color:var(--g);padding:1px 6px;border-radius:4px;font-size:13px;font-weight:500}
+.proto{font-family:'DM Mono',monospace;font-size:12px;background:#f0faf3;border:1px solid var(--gl);border-radius:4px;padding:2px 7px;color:var(--g)}
+.dur-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.dur-c{background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:8px 12px}
+.dur-l{font-size:11px;color:var(--faint);font-weight:500;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px}
+.dur-v{font-size:17px;font-weight:700;color:var(--g);font-family:'DM Mono',monospace}
+.tmini{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.tmc{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center}
+.tmi{font-size:18px;margin-bottom:4px}
+.tml{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:3px}
+.tmv{font-size:16px;font-weight:700;color:var(--g);font-family:'DM Mono',monospace}
+.tms{font-size:10px;color:var(--faint)}
+.email-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-top:10px}
+.eh{background:var(--white);border-bottom:1px solid var(--border);padding:8px 12px;display:flex;flex-direction:column;gap:4px}
+.er{display:flex;gap:6px;align-items:center;font-size:12.5px}
+.el{min-width:46px;font-weight:600;color:var(--faint)}
+.eb{padding:12px;font-size:13px;color:var(--txt);line-height:1.8}
+.m-nav{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-top:1px solid var(--border);flex-shrink:0;border-radius:0 0 16px 16px}
+.nprev,.nnext{border:none;border-radius:8px;padding:8px 16px;font-size:14px;font-family:'DM Sans',sans-serif;cursor:pointer;font-weight:500;transition:background .2s,opacity .2s}
+.nprev{background:var(--surface);color:var(--muted);border:1px solid var(--border)}
+.nprev:hover:not(:disabled){background:var(--border)}
+.nprev:disabled,.nnext:disabled{opacity:.3;cursor:not-allowed}
+.nnext{background:var(--g);color:#fff}
+.nnext:hover:not(:disabled){background:#155225}
+.mprog{font-size:12px;color:var(--faint)}
+</style>
+</head>
+<body>
+
+<div class="prog-bar" id="prog"></div>
+
+<div class="top-credit">
+  Desenvolvido por Jennifer Silveira &amp; Claude (Anthropic) · iGreen Energy © 2026<br>
+  <span>jennifer.silveira@igreenenergy.com.br</span>
+</div>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <span class="logo-badge">3C+</span>
+      <span class="logo-title">Manual de Monitoria</span>
+    </div>
+    <span class="header-tag">iGreen Energy</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-eyebrow"><span></span> iGreen Energy <span></span></div>
+  <h1>Como fazer<br><strong>monitoria</strong></h1>
+  <p class="hero-sub">Clique em uma etapa para abrir o guia passo a passo.</p>
+  <div class="parts-row">
+    <button class="part-btn" onclick="openModal('crono')"><span class="pnum">⏱</span> Cronômetro</button>
+    <button class="part-btn" onclick="openModal('parte1')"><span class="pnum">1</span> Parte 1 — 3C Plus</button>
+    <button class="part-btn" onclick="openModal('criterios')"><span class="pnum">★</span> Critérios</button>
+    <button class="part-btn" onclick="openModal('parte2')"><span class="pnum">2</span> Parte 2 — Registro</button>
+    <button class="part-btn" style="background:rgba(255,200,50,.18);border-color:rgba(255,200,50,.35);" onclick="openForm()"><span class="pnum" style="background:rgba(255,200,50,.3);">📋</span> Formulário Manual</button>
+  </div>
+</section>
+
+<main>
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:1rem;">
+    <div style="background:var(--g);color:#fff;width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;">📋</div>
+    <div>
+      <div style="font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--faint);">Referência rápida</div>
+      <div style="font-size:15px;font-weight:500;">Critérios de avaliação — vigência 16/04/26</div>
+    </div>
+  </div>
+
+  <div class="crit-wrap">
+    <table class="crit-table">
+      <thead>
+        <tr><th style="width:36px">#</th><th>Critério</th><th>Itens avaliados</th><th style="width:58px;text-align:center">Peso</th><th style="width:68px;text-align:center">Penalidade</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="num-c">1º</td><td><strong>Abertura e Identificação</strong></td><td><ul class="crit-list"><li>Saudação adequada</li><li>Identificação do operador e da empresa</li><li>Sem conversas paralelas fora do mudo</li></ul></td><td class="peso-c">5</td><td class="pen-c">-5</td></tr>
+        <tr><td class="num-c">2º</td><td><strong>Comunicação e Postura</strong></td><td><ul class="crit-list"><li>Clareza na fala e respeito com o cliente</li><li>Tom respeitoso, sem ironia ou pressão</li><li>Escuta ativa — não interromper</li></ul></td><td class="peso-c">5</td><td class="pen-c">-5</td></tr>
+        <tr><td class="num-c">3º</td><td><strong>Diagnóstico da Dívida</strong></td><td><ul class="crit-list"><li>Questionar o motivo da inadimplência</li><li>Recorda do contrato? Recebeu boleto? Tem acesso ao app? Previsão de pagamento?</li></ul></td><td class="peso-c">10</td><td class="pen-c">-10</td></tr>
+        <tr class="row-hi"><td class="num-c">4º</td><td><strong>Negociação</strong></td><td><ul class="crit-list"><li>Argumentação de benefícios do pagamento pontual</li><li><span class="obrig">! Obrigatório:</span> perguntar sobre dúvidas em boletos</li><li><span class="obrig">! Obrigatório:</span> perguntar sobre acesso ao app</li><li><span class="obrig">! Obrigatório:</span> falar sobre iGreen Club (mín. 2)</li></ul></td><td class="peso-c" style="font-size:18px;font-weight:700">40</td><td class="pen-c" style="font-size:16px;font-weight:700">-40</td></tr>
+        <tr><td class="num-c">5º</td><td><strong>Conformidade</strong></td><td><ul class="crit-list"><li>Questionar o motivo do cancelamento</li><li>Não ameaçar ou constranger</li></ul></td><td class="peso-c">20</td><td class="pen-c">-20</td></tr>
+        <tr><td class="num-c">6º</td><td><strong>Registros e Procedimentos</strong></td><td><ul class="crit-list"><li>Registro correto no sistema</li><li>Classificação adequada da ligação</li></ul></td><td class="peso-c">10</td><td class="pen-c">-10</td></tr>
+        <tr><td class="num-c">7º</td><td><strong>Encerramento</strong></td><td><ul class="crit-list"><li>Esclarecimento do acordo fechado</li><li>Agradecimento e cordialidade</li></ul></td><td class="peso-c">10</td><td class="pen-c">-10</td></tr>
+      </tbody>
+      <tfoot>
+        <tr><td colspan="3" style="text-align:right;padding:10px 12px">TOTAL</td><td style="text-align:center;color:var(--g);font-size:16px;padding:10px 8px">100</td><td style="text-align:center;color:var(--red);font-size:16px;padding:10px 8px">-100</td></tr>
+      </tfoot>
+    </table>
+    <div class="erros-hdr">⚠️ Erros críticos — Monitoria ZERADA</div>
+    <table class="crit-table">
+      <thead><tr class="erros-thead"><th>Erro</th><th>Descrição</th><th style="width:68px;text-align:center">Resultado</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Informação incorreta</strong></td><td>Passou informação incorreta, incompleta ou errada ao cliente</td><td class="pen-c" style="font-weight:700">Zera</td></tr>
+        <tr><td><strong>Postura ríspida</strong></td><td>Agiu de forma ríspida ou ameaçadora</td><td class="pen-c" style="font-weight:700">Zera</td></tr>
+        <tr><td><strong>Linguagem agressiva</strong></td><td>Usar linguajar agressivo com o cliente</td><td class="pen-c" style="font-weight:700">Zera</td></tr>
+        <tr><td><strong>Retenção de ligação</strong></td><td>Segurar a ligação até dar o tempo legível para cota</td><td class="pen-c" style="font-weight:700">Zera</td></tr>
+        <tr><td><strong>Contra-argumentação indevida</strong></td><td>Cliente reclama do desconto e você oferta conta única</td><td class="pen-c" style="font-weight:700">Zera</td></tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<footer>
+  <div class="foot-badge">✅ Manual completo — Partes 1 e 2</div>
+  <p style="color:var(--muted);font-size:13px;margin-bottom:4px;">Dúvidas sobre o processo? Fale com <strong>seu gestor e pleno</strong>.</p>
+  <p style="font-size:13px;color:var(--muted);">Dúvidas sobre o material? <strong>Jennifer Silveira</strong> — <a href="mailto:jennifer.silveira@igreenenergy.com.br">jennifer.silveira@igreenenergy.com.br</a></p>
+  <div class="foot-credit">
+    Desenvolvido por Jennifer Silveira &amp; Claude (Anthropic) · iGreen Energy © 2026<br>
+    <span>jennifer.silveira@igreenenergy.com.br</span>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="overlay" onclick="closeOnBg(event)">
+  <div class="modal" id="modal">
+    <div class="m-top">
+      <div><div class="m-lbl" id="m-label"></div><div class="m-ttl" id="m-title"></div></div>
+      <button class="m-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="m-dots" id="m-dots"></div>
+    <div class="m-body" id="m-body"></div>
+    <div class="m-nav">
+      <button class="nprev" id="mprev" onclick="go(-1)">← Anterior</button>
+      <span class="mprog" id="mprog"></span>
+      <button class="nnext" id="mnext" onclick="go(1)">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const M = {
+crono:{
+  label:'Antes de começar',title:'⏱ Cronômetro de tarefas',
+  steps:[
+    {n:'→',t:'Tempo estimado',h:`<div class="tmini"><div class="tmc"><div class="tmi">🎯</div><div class="tml">3 monitorias</div><div class="tmv">~22 min</div><div class="tms">≈ 7,5 min cada</div></div><div class="tmc"><div class="tmi">⚡</div><div class="tml">6 monitorias</div><div class="tmv">~45 min</div><div class="tms">≈ 7,5 min cada</div></div><div class="tmc"><div class="tmi">👑</div><div class="tml">Ref. Jennifer</div><div class="tmv">2h30</div><div class="tms">20 monitorias</div></div></div><p class="s-p">Registre sua tarefa na plataforma antes de iniciar qualquer monitoria.</p>`},
+    {n:'1',t:'Acesse a plataforma',h:`<p class="s-p"><a href="https://igreenjennifer.github.io/igreen-5w2h/" target="_blank">🔗 igreenjennifer.github.io/igreen-5w2h</a></p><div class="s-cred"><div class="cr"><span class="cl">Login</span><span class="cv">seu e-mail corporativo</span></div><div class="cr"><span class="cl">Senha</span><span class="cv">123456 (padrão)</span></div></div>`},
+    {n:'2',t:'Clique em "Ao Vivo"',h:`<p class="s-p">Após o login, você estará no <strong>Dashboard</strong>. Clique em <span class="hl">Ao Vivo</span> no menu superior.</p>`},
+    {n:'3',t:'Preencha os dados',h:`<div class="s-cred"><div class="cr"><span class="cl">Nome</span><span class="cv">Monitoria</span></div><div class="cr"><span class="cl">Descrição</span><span class="cv">Qtde e nomes dos monitorados</span></div><div class="cr"><span class="cl">Delegado</span><span class="cv">O gestor e seu pleno</span></div><div class="cr"><span class="cl">Categoria</span><span class="cv">Monitoria</span></div></div>`},
+    {n:'4',t:'Iniciar, pausar e finalizar',h:`<p class="s-p">Clique em <span class="hl">+ Adicionar Tarefa</span> e depois em <span class="hl">▶ Fazer</span>.</p><div class="s-tip">⏸ Precisou pausar? Clique em <strong>Pausar</strong> e informe o motivo.</div><p class="s-p" style="margin-top:10px">Ao terminar tudo, clique em <span class="hl">✅ Finalizar</span>.</p>`}
+  ]
+},
+parte1:{
+  label:'Parte 1 — Sistema 3C+',title:'🔐 Acessar, filtrar e ouvir',
+  steps:[
+    {n:'1',t:'Acesse o sistema 3C+',h:`<p class="s-p"><a href="https://igreenenergy.3c.plus/login" target="_blank">🔗 igreenenergy.3c.plus/login</a></p><div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--faint);margin:10px 0 4px">Acesso 1 — Jennifer</div><div class="s-cred"><div class="cr"><span class="cl">Login</span><span class="cv">jennifer.silveira@igreenenergy.com.br</span></div><div class="cr"><span class="cl">Senha</span><span class="cv">iGreenE@2026</span></div></div><div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--faint);margin:10px 0 4px">Acesso 2 — Luciano</div><div class="s-cred"><div class="cr"><span class="cl">Login</span><span class="cv">lucianosantiago1919@gmail.com</span></div><div class="cr"><span class="cl">Senha</span><span class="cv">Callink@101010</span></div></div><div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--faint);margin:10px 0 4px">Acesso 3 — Tamires</div><div class="s-cred"><div class="cr"><span class="cl">Ramal</span><span class="cv">35</span></div><div class="cr"><span class="cl">Senha</span><span class="cv">Igreenenergy27*</span></div></div><div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--faint);margin:10px 0 4px">Acesso 4 — Déborah</div><div class="s-cred"><div class="cr"><span class="cl">Ramal</span><span class="cv">828715</span></div><div class="cr"><span class="cl">Senha</span><span class="cv">Amarelo@1616</span></div></div>`},
+    {n:'2',t:'Relatórios → Ligações',h:`<p class="s-p">No menu lateral esquerdo, clique em <span class="hl">Relatórios</span> e depois em <span class="hl">Ligações</span>.</p>`},
+    {n:'3',t:'Selecione a data',h:`<p class="s-p">No campo <strong>Período</strong>, escolha a data.</p><div class="s-tip">💡 Use o dia atual ou o anterior. Ex: se hoje é 12/05, selecione 11/05 ou 12/05.</div>`},
+    {n:'4',t:'Selecione as campanhas',h:`<p class="s-p">Selecione as três campanhas ativas:</p><div class="sbadges"><span class="sb sb-g">A Comerc 1 – Alto valor</span><span class="sb sb-g">A Comerc 2 – Relacionamento</span><span class="sb sb-g">A Comerc 3 – Bahia</span></div>`},
+    {n:'5',t:'Selecione o agente',h:`<p class="s-p">No campo <strong>Agente</strong>, digite o nome. Ex: <span class="hl">paulo</span> → selecione <strong>7014 – Paulo Roberto</strong>. Clique em <span class="hl">Buscar</span>.</p>`},
+    {n:'6',t:'Configure a duração',h:`<div class="dur-row"><div class="dur-c"><div class="dur-l">Duração mínima</div><div class="dur-v">02:00</div></div><div class="dur-c"><div class="dur-l">Duração máxima</div><div class="dur-v">à sua escolha</div></div></div><div class="s-tip" style="margin-top:10px">⏱ Ligações abaixo de 2 min são muito curtas para avaliação.</div>`},
+    {n:'7',t:'Dê play na ligação',h:`<p class="s-p">Clique na <span class="hl">setinha (▼)</span> ao lado da ligação. O player aparecerá abaixo.</p><p class="s-p" style="margin-top:8px">Clique em <span class="hl">▶ Play</span> e acelere se quiser:</p><div class="sbadges"><span class="sb sb-g">Normal</span><span class="sb sb-g">1.25×</span><span class="sb sb-g">1.5×</span><span class="sb sb-a">1.75×</span><span class="sb sb-a">2×</span></div>`},
+    {n:'8',t:'Consulte as informações do cliente',h:`<p class="s-p">Clique no ícone <span class="hl">📄 relatório</span> acima do player para ver os dados do mailing:</p><div class="sbadges" style="margin-top:10px"><span class="sb sb-g">Nome</span><span class="sb sb-g">CPF</span><span class="sb sb-g">Valor</span><span class="sb sb-g">Vencimento</span><span class="sb sb-g">Concessionária</span><span class="sb sb-g">E-mail</span></div><div class="s-tip" style="margin-top:10px">Use para consultar o cliente no BackOffice.</div>`},
+    {n:'9',t:'Anote o protocolo',h:`<p class="s-p">Registre o <strong>número do protocolo</strong> nos detalhes expandidos da ligação.<br><br>Exemplo: <span class="proto">p-20260511612089...</span></p><p class="s-p" style="margin-top:10px">Você vai precisar dele na <strong>Parte 2</strong>.</p>`},
+    {n:'10',t:'Baixe o áudio com o nome do colaborador',h:`<p class="s-p">Clique no ícone <span class="hl">↓ download</span> ao lado do player e renomeie o arquivo imediatamente:</p><div class="s-cred" style="margin-top:10px"><div class="cr"><span class="cl">Sugestão</span><span class="cv">Audio_PauloRoberto_11-05-2026.mp3</span></div></div><div class="s-tip" style="margin-top:10px">🎧 Renomeie logo após baixar para não confundir com outras monitorias do dia.</div>`}
+  ]
+},
+criterios:{
+  label:'Referência',title:'📋 Critérios de avaliação',
+  steps:[
+    {n:'1',t:'Abertura e Identificação — 5 pts',h:`<ul class="crit-list" style="margin-bottom:10px"><li>Saudação adequada</li><li>Identificação do operador e da empresa</li><li>Sem conversas paralelas fora do mudo</li></ul><p class="s-p">Penalidade: <strong style="color:var(--red)">-5 pts</strong></p>`},
+    {n:'2',t:'Comunicação e Postura — 5 pts',h:`<ul class="crit-list" style="margin-bottom:10px"><li>Clareza na fala e respeito com o cliente</li><li>Tom respeitoso, sem ironia ou pressão excessiva</li><li>Escuta ativa — não interromper o cliente</li></ul><p class="s-p">Penalidade: <strong style="color:var(--red)">-5 pts</strong></p>`},
+    {n:'3',t:'Diagnóstico da Dívida — 10 pts',h:`<ul class="crit-list" style="margin-bottom:10px"><li>Leitura do histórico e entendimento da dívida</li><li>Questionamento do motivo da inadimplência</li><li>Perguntas diretivas: recorda do contrato? recebeu boleto? tem acesso ao app? previsão de pagamento?</li></ul><p class="s-p">Penalidade: <strong style="color:var(--red)">-10 pts</strong></p>`},
+    {n:'4',t:'Negociação — 40 pts ⭐',h:`<ul class="crit-list" style="margin-bottom:10px"><li>Argumentação de benefícios do pagamento pontual</li><li>Seguir régua de argumentação adequada ao perfil</li><li><span class="obrig">! Obrigatório:</span> perguntar sobre dúvidas em boletos</li><li><span class="obrig">! Obrigatório:</span> perguntar sobre acesso ao aplicativo</li><li><span class="obrig">! Obrigatório:</span> falar sobre iGreen Club (mínimo 2 benefícios)</li></ul><p class="s-p">Penalidade: <strong style="color:var(--red)">-40 pts</strong></p><div class="s-tip">Este é o critério mais importante — vale 40% da nota total.</div>`},
+    {n:'5',t:'Conformidade — 20 pts',h:`<ul class="crit-list" style="margin-bottom:10px"><li>Questionar o motivo do cancelamento</li><li>Não expor o cliente</li><li>Não ameaçar ou constranger</li></ul><p class="s-p">Penalidade: <strong style="color:var(--red)">-20 pts</strong></p>`},
+    {n:'6',t:'Registros e Procedimentos — 10 pts',h:`<ul class="crit-list" style="margin-bottom:10px"><li>Registro correto no sistema</li><li>Classificação adequada da ligação</li></ul><p class="s-p">Penalidade: <strong style="color:var(--red)">-10 pts</strong></p>`},
+    {n:'7',t:'Encerramento — 10 pts',h:`<ul class="crit-list" style="margin-bottom:10px"><li>Esclarecimento do acordo fechado</li><li>Agradecimento e cordialidade</li></ul><p class="s-p">Penalidade: <strong style="color:var(--red)">-10 pts</strong></p>`},
+    {n:'⚠',t:'Erros Críticos — Zeram a monitoria',h:`<ul class="crit-list" style="margin-bottom:10px"><li>Passou informação incorreta ou incompleta ao cliente</li><li>Agiu de forma ríspida ou ameaçadora</li><li>Usou linguagem agressiva</li><li>Reteve a ligação para forçar tempo de cota</li><li>Contra-argumentou cancelamento fora da regra</li></ul><div class="s-tip" style="background:var(--redl);border-color:var(--red);color:var(--red)">⚠️ Qualquer erro crítico marcado no sistema zera a nota automaticamente.</div>`}
+  ]
+},
+parte2:{
+  label:'Parte 2 — Registro',title:'📝 Lançar, exportar e enviar',
+  steps:[
+    {n:'1',t:'Acesse o iGreen Performance',h:`<p class="s-p"><a href="https://igreen-sistemas.github.io/MonitoriaGreen/" target="_blank">🔗 igreen-sistemas.github.io/MonitoriaGreen</a></p><div class="s-cred"><div class="cr"><span class="cl">Login</span><span class="cv">luciano@igreenenergy.com.br</span></div><div class="cr"><span class="cl">Senha</span><span class="cv">1234</span></div></div><div class="s-tip" style="margin-top:10px">⚠️ Se a plataforma estiver fora do ar, use o <strong>Formulário Manual</strong> (botão amarelo no início da página) para registrar a monitoria e enviar ao gestor e pleno pelo Teams. Quando a plataforma voltar, basta preencher com os dados já registrados.</div>`},
+    {n:'2',t:'Clique em "+ Monitoria"',h:`<p class="s-p">No painel <strong>Inadimplência Energizados</strong>, clique em <span class="hl">+ Monitoria</span> no canto superior direito.</p>`},
+    {n:'3',t:'Preencha o formulário',h:`<div class="s-cred"><div class="cr"><span class="cl">Protocolo</span><span class="cv">Número anotado na Parte 1</span></div><div class="cr"><span class="cl">Mês</span><span class="cv">Mês atual</span></div><div class="cr"><span class="cl">Data</span><span class="cv">Data da ligação monitorada</span></div><div class="cr"><span class="cl">Operador</span><span class="cv">Selecione o agente avaliado</span></div><div class="cr"><span class="cl">Gestor</span><span class="cv">Preenchido automaticamente ✓</span></div></div>`},
+    {n:'4',t:'Marque o que NÃO foi feito',h:`<p class="s-p">Marque apenas os critérios que o colaborador <strong>não cumpriu</strong>. O sistema desconta os pontos a partir de 100.</p><div class="s-tip">⚠️ Itens críticos (em vermelho) zeram a monitoria ao serem marcados.</div>`},
+    {n:'5',t:'Observações e perfil',h:`<p class="s-p">• <strong>Observações:</strong> descreva os pontos de melhoria identificados na ligação.<br><br>• Se disponível, selecione o <strong>perfil comportamental</strong> identificado.</p>`},
+    {n:'6',t:'Salve a monitoria',h:`<p class="s-p">Clique em <span class="hl">Salvar Monitoria</span>. O sistema calcula a pontuação e registra no painel do operador.</p>`},
+    {n:'7',t:'Exporte o PDF',h:`<p class="s-p">No menu lateral, clique em <span class="hl">Operadores</span>. Localize o agente, clique no cartão e clique em <span class="hl">↓ Exportar PDF</span>.</p>`},
+    {n:'8',t:'Salve em pasta de monitoria',h:`<p class="s-p">Salve o PDF em uma pasta organizada: <span class="proto">Monitorias / Maio 2026</span><br><br>Ao terminar todas, encaminhe para seu <strong>gestor e pleno</strong>.</p><div class="s-tip">📁 Organize por mês para acompanhar a evolução de cada operador.</div>`},
+    {n:'9',t:'Envie o e-mail ao colaborador',h:`<p class="s-p" style="margin-bottom:10px">Somente quando acordado com a liderança:</p><div class="email-box"><div class="eh"><div class="er"><span class="el">Para:</span><span style="color:var(--g);font-weight:500;font-size:13px">O colaborador em questão</span></div><div class="er"><span class="el">Cc:</span><span style="font-size:13px;color:var(--muted)">Seu gestor e seu pleno</span></div><div class="er"><span class="el">Assunto:</span><span style="font-size:12.5px;color:var(--muted)">Monitoria de Qualidade — [Nome] · [Data]</span></div></div><div class="eb">Olá! Sua monitoria foi realizada 😊<br><br>📎 PDF com a pontuação<br>🎧 Áudio da ligação<br>📋 Imagem dos critérios (16/04/26)</div></div><div class="s-tip" style="margin-top:10px">📌 Lembre de anexar: PDF, áudio e a imagem da tabela de critérios.</div>`}
+  ]
+}
+};
+
+let cur={key:null,step:0};
+
+function openModal(k){cur.key=k;cur.step=0;render();document.getElementById('overlay').classList.add('open');document.body.style.overflow='hidden'}
+function closeModal(){document.getElementById('overlay').classList.remove('open');document.body.style.overflow=''}
+function closeOnBg(e){if(e.target===document.getElementById('overlay'))closeModal()}
+function go(d){const data=M[cur.key];cur.step=Math.max(0,Math.min(data.steps.length-1,cur.step+d));render()}
+function jump(i){cur.step=i;render()}
+
+function render(){
+  const data=M[cur.key];const s=data.steps[cur.step];const total=data.steps.length;
+  document.getElementById('m-label').textContent=data.label;
+  document.getElementById('m-title').textContent=data.title;
+  document.getElementById('m-dots').innerHTML=data.steps.map((_,i)=>`<div class="mdot ${i<cur.step?'done':''} ${i===cur.step?'active':''}" onclick="jump(${i})" title="Passo ${i+1}"></div>`).join('');
+  document.getElementById('m-body').innerHTML=`<div class="s-counter">Passo ${cur.step+1} de ${total}</div><div class="s-head"><div class="snum">${s.n}</div>${s.t}</div>${s.h}`;
+  document.getElementById('m-body').scrollTop=0;
+  document.getElementById('mprev').disabled=cur.step===0;
+  const last=cur.step===total-1;
+  document.getElementById('mnext').disabled=last;
+  document.getElementById('mnext').textContent=last?'✓ Concluído':'Próximo →';
+  document.getElementById('mprog').textContent=`${cur.step+1} / ${total}`;
+}
+
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('overlay').classList.contains('open'))return;
+  if(e.key==='Escape')closeModal();
+  if(e.key==='ArrowRight')go(1);
+  if(e.key==='ArrowLeft')go(-1);
+});
+
+const pb=document.getElementById('prog');
+window.addEventListener('scroll',()=>{const t=document.body.scrollHeight-window.innerHeight;pb.style.width=(t>0?(window.scrollY/t)*100:0)+'%'});
+</script>
+<!-- FORM OVERLAY -->
+<div class="modal-overlay" id="form-overlay" onclick="closeFormOnBg(event)">
+  <div class="modal" style="max-width:620px;max-height:94vh;">
+    <div class="m-top" style="background:#7a5800;">
+      <div><div class="m-lbl">Plataforma indisponível?</div><div class="m-ttl">📋 Formulário Manual de Monitoria</div></div>
+      <button class="m-close" onclick="closeForm()">✕</button>
+    </div>
+    <div class="m-body" id="form-body" style="padding:20px;">
+
+      <p style="font-size:13px;color:var(--muted);margin-bottom:16px;background:var(--ambl);border-left:3px solid #d4800f;border-radius:0 6px 6px 0;padding:10px 12px;">
+        ⚠️ Use este formulário <strong>somente quando o iGreen Performance estiver fora do ar</strong>. Preencha, tire um print ou use Ctrl+P para imprimir e envie ao gestor e pleno pelo <strong>Teams</strong>. Quando a plataforma voltar, basta lançar os dados sem precisar refazer a monitoria.
+      </p>
+
+      <div id="form-entries"></div>
+
+      <button onclick="addEntry()" style="width:100%;padding:10px;background:var(--g);color:#fff;border:none;border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;margin-top:4px;">+ Adicionar monitoria</button>
+
+      <div style="display:flex;gap:10px;margin-top:12px;">
+        <button onclick="window.print()" style="flex:1;padding:10px;background:#7a5800;color:#fff;border:none;border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;">🖨 Imprimir / Salvar PDF</button>
+        <button onclick="closeForm()" style="flex:1;padding:10px;background:var(--surface);color:var(--muted);border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;cursor:pointer;">Fechar</button>
+      </div>
+
+      <p style="font-size:11px;color:var(--faint);text-align:center;margin-top:10px;">Os dados não ficam salvos no site — apenas preencha, imprima/print e envie pelo Teams.</p>
+    </div>
+  </div>
+</div>
+
+<style>
+.form-entry{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;position:relative}
+.form-entry-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.entry-num{background:var(--gl);color:var(--g);font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px}
+.entry-del{background:var(--redl);color:var(--red);border:none;border-radius:6px;font-size:12px;padding:3px 8px;cursor:pointer;font-family:'DM Sans',sans-serif}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.form-field{display:flex;flex-direction:column;gap:4px}
+.form-field.full{grid-column:1/-1}
+.form-field label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--faint)}
+.form-field input,.form-field textarea,.form-field select{font-family:'DM Sans',sans-serif;font-size:13px;padding:7px 10px;border:1px solid var(--border);border-radius:7px;background:var(--surface);color:var(--txt);outline:none}
+.form-field input:focus,.form-field textarea:focus,.form-field select:focus{border-color:var(--gm);background:#fff}
+.form-field textarea{resize:vertical;min-height:60px}
+.crit-checks{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:4px}
+.chk-item{display:flex;align-items:flex-start;gap:6px;font-size:12.5px;cursor:pointer;padding:4px 6px;border-radius:5px;border:1px solid var(--border);background:var(--surface)}
+.chk-item input[type=checkbox]{margin-top:2px;accent-color:var(--g)}
+.chk-item.critical{border-color:#f5a0a0;background:var(--redl)}
+.chk-item.critical input{accent-color:var(--red)}
+.score-display{background:var(--gl);border:1px solid var(--gm);border-radius:8px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+.score-num{font-size:24px;font-weight:700;color:var(--g);font-family:'DM Mono',monospace}
+.score-zero{color:var(--red)}
+.score-label{font-size:12px;color:var(--muted)}
+.sec-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin:10px 0 6px}
+
+@media print{
+  .modal-overlay{position:static!important;background:none!important;display:block!important;padding:0}
+  .modal{max-width:100%!important;max-height:none!important;box-shadow:none!important;border-radius:0!important}
+  .m-top,.m-close,#form-overlay>div>.m-body>button,#form-overlay>div>.m-body>div:last-of-type,#form-overlay>div>.m-body>p:last-child,.entry-del{display:none!important}
+  header,.hero,main,footer,.prog-bar,.top-credit,#overlay{display:none!important}
+  #form-overlay{display:block!important}
+  .form-entry{break-inside:avoid;page-break-inside:avoid}
+}
+</style>
+
+<script>
+const CRITERIA=[
+  {id:'c1',label:'Abertura e Identificação',pts:5,critical:false},
+  {id:'c2',label:'Comunicação e Postura',pts:5,critical:false},
+  {id:'c3',label:'Diagnóstico da Dívida',pts:10,critical:false},
+  {id:'c4',label:'Negociação',pts:40,critical:false},
+  {id:'c5',label:'Conformidade',pts:20,critical:false},
+  {id:'c6',label:'Registros e Procedimentos',pts:10,critical:false},
+  {id:'c7',label:'Encerramento',pts:10,critical:false},
+  {id:'e1',label:'Informação incorreta ao cliente',pts:100,critical:true},
+  {id:'e2',label:'Postura ríspida ou ameaçadora',pts:100,critical:true},
+  {id:'e3',label:'Linguagem agressiva',pts:100,critical:true},
+  {id:'e4',label:'Retenção de ligação',pts:100,critical:true},
+  {id:'e5',label:'Contra-argumentação indevida',pts:100,critical:true},
+];
+
+let entryCount=0;
+
+function openForm(){
+  document.getElementById('form-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+  if(document.getElementById('form-entries').children.length===0) addEntry();
+}
+function closeForm(){document.getElementById('form-overlay').classList.remove('open');document.body.style.overflow=''}
+function closeFormOnBg(e){if(e.target===document.getElementById('form-overlay'))closeForm()}
+
+function addEntry(){
+  entryCount++;
+  const id=`entry-${entryCount}`;
+  const div=document.createElement('div');
+  div.className='form-entry';
+  div.id=id;
+  div.innerHTML=`
+    <div class="form-entry-hdr">
+      <span class="entry-num">Monitoria ${entryCount}</span>
+      <button class="entry-del" onclick="document.getElementById('${id}').remove()">✕ Remover</button>
+    </div>
+    <div class="form-grid">
+      <div class="form-field"><label>Protocolo</label><input type="text" placeholder="p-20260511..." oninput="updateScore('${id}')"></div>
+      <div class="form-field"><label>Operador (agente)</label><input type="text" placeholder="Nome do agente" oninput="updateScore('${id}')"></div>
+      <div class="form-field"><label>Data da ligação</label><input type="date" oninput="updateScore('${id}')"></div>
+      <div class="form-field"><label>Mês de referência</label><input type="text" placeholder="Ex: Maio/2026" oninput="updateScore('${id}')"></div>
+      <div class="form-field"><label>Quem avaliou</label><input type="text" placeholder="Seu nome" oninput="updateScore('${id}')"></div>
+      <div class="form-field"><label>Duração da ligação</label><input type="text" placeholder="Ex: 03:45" oninput="updateScore('${id}')"></div>
+    </div>
+    <div class="sec-label">Itens não cumpridos — marque o que falhou</div>
+    <div class="crit-checks" id="checks-${id}">
+      ${CRITERIA.filter(c=>!c.critical).map(c=>`
+        <label class="chk-item">
+          <input type="checkbox" id="${id}-${c.id}" onchange="updateScore('${id}')">
+          <span>${c.label} <strong style="color:var(--red)">-${c.pts}pts</strong></span>
+        </label>`).join('')}
+    </div>
+    <div class="sec-label" style="color:var(--red)">⚠️ Erros críticos — zeram a monitoria</div>
+    <div class="crit-checks">
+      ${CRITERIA.filter(c=>c.critical).map(c=>`
+        <label class="chk-item critical">
+          <input type="checkbox" id="${id}-${c.id}" onchange="updateScore('${id}')">
+          <span>${c.label}</span>
+        </label>`).join('')}
+    </div>
+    <div class="score-display" id="score-${id}">
+      <div><div class="score-label">Pontuação final</div><div class="score-num" id="scorenum-${id}">100</div></div>
+      <div style="text-align:right"><div class="score-label">Status</div><div id="scorestatus-${id}" style="font-size:13px;font-weight:600;color:var(--g)">Excelente</div></div>
+    </div>
+    <div class="form-field full" style="margin-top:10px"><label>Observações / pontos de melhoria</label><textarea placeholder="Descreva os pontos de melhoria observados na ligação..."></textarea></div>
+  `;
+  document.getElementById('form-entries').appendChild(div);
+  updateScore(id);
+}
+
+function updateScore(id){
+  let score=100;
+  let zeroed=false;
+  CRITERIA.forEach(c=>{
+    const el=document.getElementById(`${id}-${c.id}`);
+    if(el&&el.checked){
+      if(c.critical){zeroed=true;}
+      else{score-=c.pts;}
+    }
+  });
+  if(zeroed)score=0;
+  score=Math.max(0,score);
+  const numEl=document.getElementById(`scorenum-${id}`);
+  const stEl=document.getElementById(`scorestatus-${id}`);
+  const boxEl=document.getElementById(`score-${id}`);
+  if(!numEl)return;
+  numEl.textContent=score;
+  numEl.className=`score-num${score===0?' score-zero':''}`;
+  let status,color;
+  if(zeroed||score===0){status='Zerada ⚠️';color='var(--red)'}
+  else if(score>=90){status='Excelente';color='var(--g)'}
+  else if(score>=70){status='Bom';color='#1a6b7a'}
+  else if(score>=50){status='Regular';color='#9a6012'}
+  else{status='Crítico';color='var(--red)'}
+  stEl.textContent=status;stEl.style.color=color;
+  boxEl.style.borderColor=score===0?'var(--red)':score>=90?'var(--gm)':'#d4800f';
+  boxEl.style.background=score===0?'var(--redl)':score>=90?'var(--gl)':'var(--ambl)';
+}
+</script>
+</body>
+</html>
