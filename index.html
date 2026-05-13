@@ -146,10 +146,11 @@ footer a:hover{text-decoration:underline}
   <div class="parts-row">
     <button class="part-btn" onclick="openTimer()"><span class="pnum">⏱</span> Cronômetro</button>
     <button class="part-btn" onclick="openModal('parte1')"><span class="pnum">1</span> Parte 1 — 3C Plus</button>
-    <button class="part-btn" onclick="openModal('criterios')"><span class="pnum">★</span> Critérios</button>
+    <button class="part-btn" onclick="openModal('criterios')"><span class="pnum">★</span> Critérios Ligação</button>
     <button class="part-btn" style="background:rgba(255,200,50,.18);border-color:rgba(255,200,50,.35);" onclick="openForm()"><span class="pnum" style="background:rgba(255,200,50,.3);">📋</span> Formulário Manual</button>
     <button class="part-btn" onclick="openModal('email')"><span class="pnum">✉</span> Envio de E-mail</button>
     <button class="part-btn" onclick="openModal('planilha')"><span class="pnum">📊</span> Pontos e Planilha</button>
+    <button class="part-btn" style="background:rgba(100,200,120,.18);border-color:rgba(100,200,120,.35);" onclick="openModal('chat')"><span class="pnum" style="background:rgba(100,200,120,.25);">💬</span> Monitoria Chat</button>
   </div>
 </section>
 
@@ -284,7 +285,7 @@ crono:{label:'',title:'',steps:[]},
 parte1:{
   label:'Parte 1 — Sistema 3C+',title:'🔐 Acessar, filtrar e ouvir',
   steps:[
-    {n:'1',t:'Acesse o sistema 3C+',h:`<p class="s-p"><a href="https://igreenenergy.3c.plus/login" target="_blank">🔗 igreenenergy.3c.plus/login</a></p><div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--faint);margin:10px 0 4px">Acesso 1 — Jennifer</div><div class="s-cred"><div class="cr"><span class="cl">Login</span><span class="cv">jennifer.silveira@igreenenergy.com.br</span></div><div class="cr"><span class="cl">Senha</span><span class="cv">iGreenE@2026</span></div></div><div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--faint);margin:10px 0 4px">Acesso 2 — Luciano</div><div class="s-cred"><div class="cr"><span class="cl">Login</span><span class="cv">lucianosantiago1919@gmail.com</span></div><div class="cr"><span class="cl">Senha</span><span class="cv">Callink@101010</span></div></div><div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--faint);margin:10px 0 4px">Acesso 3 — Tamires</div><div class="s-cred"><div class="cr"><span class="cl">Ramal</span><span class="cv">35</span></div><div class="cr"><span class="cl">Senha</span><span class="cv">Igreenenergy27*</span></div></div><div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--faint);margin:10px 0 4px">Acesso 4 — Déborah</div><div class="s-cred"><div class="cr"><span class="cl">Ramal</span><span class="cv">828715</span></div><div class="cr"><span class="cl">Senha</span><span class="cv">Amarelo@1616</span></div></div>`},
+    {n:'1',t:'Acesse o sistema 3C+',h:`<p class="s-p"><a href="https://igreenenergy.3c.plus/login" target="_blank">🔗 igreenenergy.3c.plus/login</a></p><div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--faint);margin:10px 0 4px">Acesso 1 — Jennifer</div><div class="s-cred"><div class="cr"><span class="cl">Login</span><span class="cv">jennifer.silveira@igreenenergy.com.br</span></div><div class="cr"><span class="cl">Senha</span><span class="cv">iGreenE@2026</span></div></div><div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--faint);margin:10px 0 4px">Acesso 2 — Luciano</div><div class="s-cred"><div class="cr"><span class="cl">Login</span><span class="cv">lucianosantiago1919@gmail.com</span></div><div class="cr"><span class="cl">Senha</span><span class="cv">Callink@010101</span></div></div><div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--faint);margin:10px 0 4px">Acesso 3 — Tamires</div><div class="s-cred"><div class="cr"><span class="cl">Ramal</span><span class="cv">35</span></div><div class="cr"><span class="cl">Senha</span><span class="cv">Igreenenergy27*</span></div></div><div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--faint);margin:10px 0 4px">Acesso 4 — Déborah</div><div class="s-cred"><div class="cr"><span class="cl">Ramal</span><span class="cv">828715</span></div><div class="cr"><span class="cl">Senha</span><span class="cv">Amarelo@1616</span></div></div>`},
     {n:'2',t:'Relatórios → Ligações',h:`<p class="s-p">No menu lateral esquerdo, clique em <span class="hl">Relatórios</span> e depois em <span class="hl">Ligações</span>.</p>`},
     {n:'3',t:'Selecione a data',h:`<p class="s-p">No campo <strong>Período</strong>, escolha a data.</p><div class="s-tip">💡 Use o dia atual ou o anterior. Ex: se hoje é 12/05, selecione 11/05 ou 12/05.</div>`},
     {n:'4',t:'Selecione a campanha',h:`<p class="s-p">Selecione a campanha que é utilizada no dia a dia.</p>`},
@@ -353,6 +354,56 @@ planilha:{
   steps:[
     {n:'1',t:'Registre os pontos de cada colaborador',h:`<p class="s-p">Ao terminar todas as monitorias do dia, anote a pontuação final de cada colaborador:</p><div class="s-cred" style="margin-top:10px"><div class="cr"><span class="cl" style="min-width:120px">Colaborador</span><span class="cv">Nome do agente avaliado</span></div><div class="cr"><span class="cl" style="min-width:120px">Pontuação</span><span class="cv">Ex: 80 pts — Bom</span></div><div class="cr"><span class="cl" style="min-width:120px">Protocolo</span><span class="cv">Número da ligação avaliada</span></div><div class="cr"><span class="cl" style="min-width:120px">Observação</span><span class="cv">Principal ponto de melhoria</span></div></div><div class="s-tip" style="margin-top:10px">📋 Use o Formulário Manual (botão amarelo) para registrar se a plataforma estiver fora do ar.</div>`},
     {n:'2',t:'Envie o print no Teams para o pleno e gestor',h:`<p class="s-p">Abra o <strong>Microsoft Teams</strong> e envie a imagem da planilha diretamente na conversa com seu gestor e pleno:</p><div class="email-box" style="margin-top:10px"><div class="eh"><div class="er"><span class="el">Para:</span><span style="font-size:13px;color:var(--g);font-weight:500">Gestor e Pleno — Teams</span></div></div><div class="eb" style="font-size:13px">Bom dia/tarde! Seguem os pontos de cada colaborador referente às monitorias do dia [data].<br><br>📊 [print da planilha]<br><br>Qualquer dúvida, estou à disposição!</div></div><div class="s-tip" style="margin-top:10px">📌 Envie sempre no mesmo dia em que as monitorias foram realizadas.</div>`}
+  ]
+},
+chat:{
+  label:'Monitoria de Chat / WhatsApp',title:'💬 Critérios, mensagens e erros críticos',
+  steps:[
+    {n:'📋',t:'Critérios Chat — Total 100 pontos',h:`<p class="s-p" style="margin-bottom:10px">Avaliação do atendimento via chat/WhatsApp:</p>
+    <table style="width:100%;border-collapse:collapse;font-size:13px;border:1px solid var(--border);border-radius:8px;overflow:hidden">
+      <tr style="background:var(--g)"><th style="padding:8px 10px;color:#fff;text-align:left">Critério</th><th style="padding:8px 10px;color:#fff;text-align:left">Itens avaliados</th><th style="padding:8px 10px;color:#fff;text-align:center">Peso</th><th style="padding:8px 10px;color:#fff;text-align:center">Desconto</th></tr>
+      <tr style="background:#fff"><td style="padding:7px 10px;white-space:nowrap">1º — Abertura e identificação</td><td style="padding:7px 10px;font-size:12px;color:var(--muted)">Saudação adequada · Identificação do operador e da empresa</td><td style="padding:7px 10px;text-align:center;font-weight:600;color:var(--g)">10</td><td style="padding:7px 10px;text-align:center;font-weight:600;color:var(--red)">-10</td></tr>
+      <tr style="background:var(--surface)"><td style="padding:7px 10px;white-space:nowrap">2º — Comunicação e postura</td><td style="padding:7px 10px;font-size:12px;color:var(--muted)">Clareza na comunicação · Tom respeitoso (sem pressão ou ironia) · Ausência de gírias ou informalidade excessiva · Não ameaçar ou constranger</td><td style="padding:7px 10px;text-align:center;font-weight:600;color:var(--g)">15</td><td style="padding:7px 10px;text-align:center;font-weight:600;color:var(--red)">-15</td></tr>
+      <tr style="background:#fff"><td style="padding:7px 10px;white-space:nowrap">3º — Negociação / Conformidade</td><td style="padding:7px 10px;font-size:12px;color:var(--muted)">Apresentação clara de propostas · Seguir script de Retenção (incluir benefícios e disponibilidade das faturas no app) · <strong>Escrita correta</strong></td><td style="padding:7px 10px;text-align:center;font-weight:700;font-size:15px;color:var(--g)">40</td><td style="padding:7px 10px;text-align:center;font-weight:700;font-size:15px;color:var(--red)">-40</td></tr>
+      <tr style="background:var(--surface)"><td style="padding:7px 10px;white-space:nowrap">4º — Registros e procedimentos</td><td style="padding:7px 10px;font-size:12px;color:var(--muted)">Registro correto no sistema · Classificação adequada do atendimento (tabulação)</td><td style="padding:7px 10px;text-align:center;font-weight:600;color:var(--g)">20</td><td style="padding:7px 10px;text-align:center;font-weight:600;color:var(--red)">-20</td></tr>
+      <tr style="background:#fff"><td style="padding:7px 10px;white-space:nowrap">5º — Encerramento</td><td style="padding:7px 10px;font-size:12px;color:var(--muted)">Esclarecimento do acordo fechado · Agradecimento e cordialidade · Encerramento de atendimento</td><td style="padding:7px 10px;text-align:center;font-weight:600;color:var(--g)">15</td><td style="padding:7px 10px;text-align:center;font-weight:600;color:var(--red)">-15</td></tr>
+      <tr style="background:var(--gl)"><td colspan="2" style="padding:8px 10px;font-weight:700;text-align:right">Total</td><td style="padding:8px 10px;text-align:center;font-weight:700;color:var(--g)">100</td><td style="padding:8px 10px;text-align:center;font-weight:700;color:var(--red)">-100</td></tr>
+    </table>
+    <div style="margin-top:10px;background:#7a1c1c;color:#fef2f2;font-size:12px;font-weight:600;padding:8px 10px;border-radius:6px 6px 0 0">⚠️ Erros críticos — zeram a monitoria</div>
+    <table style="width:100%;border-collapse:collapse;font-size:13px;border:1px solid var(--border);border-radius:0 0 8px 8px;overflow:hidden">
+      <tr style="background:#9e2828"><th style="padding:7px 10px;color:#fef2f2;text-align:left;font-weight:500">Erro</th><th style="padding:7px 10px;color:#fef2f2;text-align:center;font-weight:500;white-space:nowrap">Resultado</th></tr>
+      <tr style="background:#fff"><td style="padding:7px 10px;font-size:12px">Passou informação incorreta ou incompleta ao cliente</td><td style="padding:7px 10px;text-align:center;font-weight:700;color:var(--red)">Zera</td></tr>
+      <tr style="background:var(--surface)"><td style="padding:7px 10px;font-size:12px">Usou linguagem agressiva por escrito</td><td style="padding:7px 10px;text-align:center;font-weight:700;color:var(--red)">Zera</td></tr>
+      <tr style="background:#fff"><td style="padding:7px 10px;font-size:12px">Ignorou a mensagem / deixou sem resposta</td><td style="padding:7px 10px;text-align:center;font-weight:700;color:var(--red)">Zera</td></tr>
+      <tr style="background:var(--surface)"><td style="padding:7px 10px;font-size:12px">Ofereceu desconto fora da regra</td><td style="padding:7px 10px;text-align:center;font-weight:700;color:var(--red)">Zera</td></tr>
+      <tr style="background:#fff"><td style="padding:7px 10px;font-size:12px">Finalizou sem resolver o problema do cliente</td><td style="padding:7px 10px;text-align:center;font-weight:700;color:var(--red)">Zera</td></tr>
+      <tr style="background:var(--surface)"><td style="padding:7px 10px;font-size:12px">Enviou boleto inválido e finalizou sem verificar</td><td style="padding:7px 10px;text-align:center;font-weight:700;color:var(--red)">Zera</td></tr>
+    </table>`},
+    {n:'📩',t:'Mensagem padrão — Retenção de cancelamento',h:`<p class="s-p" style="margin-bottom:8px">Quando o cliente solicitar cancelamento, envie esta mensagem:</p>
+    <div class="email-box">
+      <div class="eb" style="font-size:13px;line-height:1.8">
+        O cancelamento é realizado apenas por meio de nossa Central de Atendimento. Para entrar em contato, você pode ligar para este mesmo número por meio do WhatsApp, onde receberá atendimento.<br><br>
+        Importante lembrar que, após o cancelamento:<br>
+        1. Seus cupons para o cruzeiro serão cancelados;<br>
+        2. Seu cadastro no Clube de Benefícios será encerrado — incluindo descontos em farmácias, cinemas, restaurantes e muito mais;<br>
+        3. Perderá o benefício do desconto na sua conta de energia;<br>
+        4. Perderá o acesso ao aplicativo iGreen, onde é possível consultar e baixar suas faturas.
+      </div>
+    </div>
+    <p style="font-size:11px;color:var(--faint);margin-top:8px;text-align:right">✍️ Créditos: Eduarda Sanqueta e Cauã Alves</p>`},
+    {n:'💚',t:'Mensagem padrão — Encerramento de atendimento',h:`<p class="s-p" style="margin-bottom:8px">Ao finalizar o atendimento, envie esta mensagem:</p>
+    <div class="email-box">
+      <div class="eb" style="font-size:13px;line-height:1.9">
+        💚 Atendimento finalizado!<br>
+        Agradecemos o seu contato com a iGreen! 😊<br>
+        Se precisar de ajuda novamente, é só responder esta mensagem para iniciar um novo atendimento.<br><br>
+        📱 Lembre-se: você pode acessar seus boletos e aproveitar benefícios exclusivos diretamente pelo app iGreen, incluindo descontos em farmácias, restaurantes, cinemas e muito mais!<br><br>
+        📞 Canais de atendimento:<br>
+        • WhatsApp: opção "Dúvidas gerais"<br>
+        • Central telefônica: (34) 99727-8247 – Opção 3<br><br>
+        Estamos sempre à disposição! 🌳☀️
+      </div>
+    </div>`}
   ]
 }
 };
