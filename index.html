@@ -125,7 +125,7 @@ footer a:hover{text-decoration:underline}
 <div class="prog-bar" id="prog"></div>
 
 <div class="top-credit">
-  Desenvolvido por Jennifer Silveira · iGreen Energy © 2026<br>
+  Desenvolvido por Jennifer Silveira &amp; Claude (Anthropic) · iGreen Energy © 2026<br>
   <span>jennifer.silveira@igreenenergy.com.br</span>
 </div>
 
@@ -146,11 +146,12 @@ footer a:hover{text-decoration:underline}
   <div class="parts-row">
     <button class="part-btn" onclick="openTimer()"><span class="pnum">⏱</span> Cronômetro</button>
     <button class="part-btn" onclick="openModal('parte1')"><span class="pnum">1</span> Parte 1 — 3C Plus</button>
-    <button class="part-btn" onclick="openModal('criterios')"><span class="pnum">★</span> Critérios Ligação</button>
+    <button class="part-btn" onclick="openModal('criterios')"><span class="pnum">★</span> Critérios</button>
     <button class="part-btn" style="background:rgba(255,200,50,.18);border-color:rgba(255,200,50,.35);" onclick="openForm()"><span class="pnum" style="background:rgba(255,200,50,.3);">📋</span> Formulário Manual</button>
     <button class="part-btn" onclick="openModal('email')"><span class="pnum">✉</span> Envio de E-mail</button>
     <button class="part-btn" onclick="openModal('planilha')"><span class="pnum">📊</span> Pontos e Planilha</button>
     <button class="part-btn" style="background:rgba(100,200,120,.18);border-color:rgba(100,200,120,.35);" onclick="openModal('chat')"><span class="pnum" style="background:rgba(100,200,120,.25);">💬</span> Monitoria Chat</button>
+    <button class="part-btn" style="background:rgba(80,160,220,.18);border-color:rgba(80,160,220,.35);" onclick="openModal('negociacao')"><span class="pnum" style="background:rgba(80,160,220,.25);">🤝</span> Negociação Ticket Meet Call</button>
   </div>
 </section>
 
@@ -200,7 +201,7 @@ footer a:hover{text-decoration:underline}
   <p style="color:var(--muted);font-size:13px;margin-bottom:4px;">Dúvidas sobre o processo? Fale com <strong>seu gestor e pleno</strong>.</p>
   <p style="font-size:13px;color:var(--muted);">Dúvidas sobre o material? <strong>Jennifer Silveira</strong> — <a href="mailto:jennifer.silveira@igreenenergy.com.br">jennifer.silveira@igreenenergy.com.br</a></p>
   <div class="foot-credit">
-    Desenvolvido por Jennifer Silveira · iGreen Energy © 2026<br>
+    Desenvolvido por Jennifer Silveira &amp; Claude (Anthropic) · iGreen Energy © 2026<br>
     <span>jennifer.silveira@igreenenergy.com.br</span>
   </div>
 </footer>
@@ -356,38 +357,74 @@ planilha:{
     {n:'2',t:'Envie o print no Teams para o pleno e gestor',h:`<p class="s-p">Abra o <strong>Microsoft Teams</strong> e envie a imagem da planilha diretamente na conversa com seu gestor e pleno:</p><div class="email-box" style="margin-top:10px"><div class="eh"><div class="er"><span class="el">Para:</span><span style="font-size:13px;color:var(--g);font-weight:500">Gestor e Pleno — Teams</span></div></div><div class="eb" style="font-size:13px">Bom dia/tarde! Seguem os pontos de cada colaborador referente às monitorias do dia [data].<br><br>📊 [print da planilha]<br><br>Qualquer dúvida, estou à disposição!</div></div><div class="s-tip" style="margin-top:10px">📌 Envie sempre no mesmo dia em que as monitorias foram realizadas.</div>`}
   ]
 },
+negociacao:{
+  label:'Negociação Ticket Meet Call',title:'🤝 Fluxo de Negociação de Dívida',
+  steps:[
+    {n:'1',t:'Fluxo passo a passo',h:`<div class="s-tip" style="margin-bottom:12px">📌 Este fluxo deve ser seguido sempre que houver negociação de dívida via chat/ticket.</div>
+    <table style="width:100%;border-collapse:collapse;font-size:13px;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:12px">
+      <tr style="background:var(--g)"><th style="padding:8px 10px;color:#fff;text-align:center;width:36px">Etapa</th><th style="padding:8px 10px;color:#fff;text-align:left">Ação</th></tr>
+      <tr style="background:#fff"><td style="padding:8px 10px;text-align:center;font-weight:700;color:var(--g)">1º</td><td style="padding:8px 10px">📞 <strong>Ligar para o cliente</strong> — contato telefônico é <span style="background:var(--gl);color:var(--g);padding:1px 7px;border-radius:4px;font-size:12px;font-weight:600">PRIORITÁRIO</span></td></tr>
+      <tr style="background:var(--surface)"><td style="padding:8px 10px;text-align:center;font-weight:700;color:var(--g)">2º</td><td style="padding:8px 10px">💬 Se não atender → <strong>enviar mensagem no chat</strong> informando: abertura do ticket e possibilidade de negociação</td></tr>
+      <tr style="background:#fff"><td style="padding:8px 10px;text-align:center;font-weight:700;color:var(--g)">3º</td><td style="padding:8px 10px">🗓️ <strong>Negociar</strong> novo vencimento para <strong>10 dias corridos</strong> a partir da data do contato</td></tr>
+      <tr style="background:var(--surface)"><td style="padding:8px 10px;text-align:center;font-weight:700;color:var(--g)">4º</td><td style="padding:8px 10px">✅ <strong>Informar o cliente</strong> sobre a nova condição e data de vencimento acordada</td></tr>
+      <tr style="background:#fff"><td style="padding:8px 10px;text-align:center;font-weight:700;color:var(--g)">5º</td><td style="padding:8px 10px">🔒 <strong>Finalizar o chat</strong> e <strong>encerrar o ticket</strong></td></tr>
+    </table>
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:10px">
+      <div style="background:#1a6b7a;padding:8px 12px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:#fff">📞 Se conseguir contato por telefone</div>
+      <div style="padding:10px 12px;font-size:13px;color:var(--muted);line-height:1.75">
+        Informe sobre o ticket aberto → Proponha nova data de negociação → Confirme a nova data de vencimento (<strong>10 dias corridos</strong>) → Finalize o chat e encerre o ticket.
+      </div>
+    </div>`},
+    {n:'2',t:'Mensagem padrão — Sem contato por telefone',h:`<p class="s-p" style="margin-bottom:8px">Quando não conseguir contato por telefone, envie esta mensagem no chat:</p>
+    <div class="email-box">
+      <div class="eb" style="font-size:13px;line-height:1.9">
+        Olá, [<em>nome do cliente</em>]! Tudo bem? 😊<br><br>
+        Somos da <strong>iGreen Energy</strong> e entramos em contato porque identificamos uma negociação pendente em seu nome. Estamos aqui para ajudá-lo a regularizar essa situação.<br><br>
+        Gostaríamos de informar que é possível <strong>negociar sua dívida</strong> com um novo vencimento para <strong>10 dias corridos</strong> a partir de hoje.<br><br>
+        Você confirma o interesse em prosseguir com o acordo?<br><br>
+        Ficamos à disposição para qualquer dúvida. 🌱
+      </div>
+    </div>`},
+    {n:'3',t:'Quando finalizar o chat sem resposta',h:`<div style="display:flex;flex-direction:column;gap:10px;margin-bottom:12px">
+      <div style="background:var(--redl);border-left:3px solid var(--red);border-radius:0 6px 6px 0;padding:10px 12px;font-size:13px;color:var(--red)">
+        <strong>⚠️ Em atraso:</strong> finalizar somente na <strong>sexta-feira</strong>, independente de quando foi o último contato.
+      </div>
+      <div style="background:var(--ambl);border-left:3px solid #d4800f;border-radius:0 6px 6px 0;padding:10px 12px;font-size:13px;color:var(--amber)">
+        <strong>📅 Em dia:</strong> aguardar no máximo <strong>1 dia</strong> sem resposta e depois finalizar.
+      </div>
+    </div>
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden">
+      <div style="background:#155225;padding:8px 12px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:#fff">💡 Tickets em dia — Regra de data de pagamento</div>
+      <div style="padding:10px 12px;font-size:13px;color:var(--txt);line-height:1.8">
+        Nunca jogue a data de pagamento muito para frente.<br>
+        <strong>A primeira parcela deve sempre cair no mesmo mês</strong> em que a negociação está sendo realizada.
+      </div>
+    </div>`}
+  ]
+},
 chat:{
   label:'Monitoria de Chat / WhatsApp',title:'💬 Critérios, mensagens e erros críticos',
   steps:[
-    {n:'📋',t:'Critérios Chat — Total 100 pontos',h:`<p class="s-p" style="margin-bottom:10px">Avaliação do atendimento via chat/WhatsApp:</p>
+    {n:'1',t:'Critérios — Total 100 pontos',h:`<p class="s-p" style="margin-bottom:10px">Avaliação do atendimento via chat/WhatsApp:</p>
     <table style="width:100%;border-collapse:collapse;font-size:13px;border:1px solid var(--border);border-radius:8px;overflow:hidden">
-      <tr style="background:var(--g)"><th style="padding:8px 10px;color:#fff;text-align:left">Critério</th><th style="padding:8px 10px;color:#fff;text-align:left">Itens avaliados</th><th style="padding:8px 10px;color:#fff;text-align:center">Peso</th><th style="padding:8px 10px;color:#fff;text-align:center">Desconto</th></tr>
-      <tr style="background:#fff"><td style="padding:7px 10px;white-space:nowrap">1º — Abertura e identificação</td><td style="padding:7px 10px;font-size:12px;color:var(--muted)">Saudação adequada · Identificação do operador e da empresa</td><td style="padding:7px 10px;text-align:center;font-weight:600;color:var(--g)">10</td><td style="padding:7px 10px;text-align:center;font-weight:600;color:var(--red)">-10</td></tr>
-      <tr style="background:var(--surface)"><td style="padding:7px 10px;white-space:nowrap">2º — Comunicação e postura</td><td style="padding:7px 10px;font-size:12px;color:var(--muted)">Clareza na comunicação · Tom respeitoso (sem pressão ou ironia) · Ausência de gírias ou informalidade excessiva · Não ameaçar ou constranger</td><td style="padding:7px 10px;text-align:center;font-weight:600;color:var(--g)">15</td><td style="padding:7px 10px;text-align:center;font-weight:600;color:var(--red)">-15</td></tr>
-      <tr style="background:#fff"><td style="padding:7px 10px;white-space:nowrap">3º — Negociação / Conformidade</td><td style="padding:7px 10px;font-size:12px;color:var(--muted)">Apresentação clara de propostas · Seguir script de Retenção (incluir benefícios e disponibilidade das faturas no app) · <strong>Escrita correta</strong></td><td style="padding:7px 10px;text-align:center;font-weight:700;font-size:15px;color:var(--g)">40</td><td style="padding:7px 10px;text-align:center;font-weight:700;font-size:15px;color:var(--red)">-40</td></tr>
-      <tr style="background:var(--surface)"><td style="padding:7px 10px;white-space:nowrap">4º — Registros e procedimentos</td><td style="padding:7px 10px;font-size:12px;color:var(--muted)">Registro correto no sistema · Classificação adequada do atendimento (tabulação)</td><td style="padding:7px 10px;text-align:center;font-weight:600;color:var(--g)">20</td><td style="padding:7px 10px;text-align:center;font-weight:600;color:var(--red)">-20</td></tr>
-      <tr style="background:#fff"><td style="padding:7px 10px;white-space:nowrap">5º — Encerramento</td><td style="padding:7px 10px;font-size:12px;color:var(--muted)">Esclarecimento do acordo fechado · Agradecimento e cordialidade · Encerramento de atendimento</td><td style="padding:7px 10px;text-align:center;font-weight:600;color:var(--g)">15</td><td style="padding:7px 10px;text-align:center;font-weight:600;color:var(--red)">-15</td></tr>
-      <tr style="background:var(--gl)"><td colspan="2" style="padding:8px 10px;font-weight:700;text-align:right">Total</td><td style="padding:8px 10px;text-align:center;font-weight:700;color:var(--g)">100</td><td style="padding:8px 10px;text-align:center;font-weight:700;color:var(--red)">-100</td></tr>
-    </table>
-    <div style="margin-top:10px;background:#7a1c1c;color:#fef2f2;font-size:12px;font-weight:600;padding:8px 10px;border-radius:6px 6px 0 0">⚠️ Erros críticos — zeram a monitoria</div>
-    <table style="width:100%;border-collapse:collapse;font-size:13px;border:1px solid var(--border);border-radius:0 0 8px 8px;overflow:hidden">
-      <tr style="background:#9e2828"><th style="padding:7px 10px;color:#fef2f2;text-align:left;font-weight:500">Erro</th><th style="padding:7px 10px;color:#fef2f2;text-align:center;font-weight:500;white-space:nowrap">Resultado</th></tr>
-      <tr style="background:#fff"><td style="padding:7px 10px;font-size:12px">Passou informação incorreta ou incompleta ao cliente</td><td style="padding:7px 10px;text-align:center;font-weight:700;color:var(--red)">Zera</td></tr>
-      <tr style="background:var(--surface)"><td style="padding:7px 10px;font-size:12px">Usou linguagem agressiva por escrito</td><td style="padding:7px 10px;text-align:center;font-weight:700;color:var(--red)">Zera</td></tr>
-      <tr style="background:#fff"><td style="padding:7px 10px;font-size:12px">Ignorou a mensagem / deixou sem resposta</td><td style="padding:7px 10px;text-align:center;font-weight:700;color:var(--red)">Zera</td></tr>
-      <tr style="background:var(--surface)"><td style="padding:7px 10px;font-size:12px">Ofereceu desconto fora da regra</td><td style="padding:7px 10px;text-align:center;font-weight:700;color:var(--red)">Zera</td></tr>
-      <tr style="background:#fff"><td style="padding:7px 10px;font-size:12px">Finalizou sem resolver o problema do cliente</td><td style="padding:7px 10px;text-align:center;font-weight:700;color:var(--red)">Zera</td></tr>
-      <tr style="background:var(--surface)"><td style="padding:7px 10px;font-size:12px">Enviou boleto inválido e finalizou sem verificar</td><td style="padding:7px 10px;text-align:center;font-weight:700;color:var(--red)">Zera</td></tr>
+      <tr style="background:var(--g)"><th style="padding:8px 10px;color:#fff;text-align:left">Critério</th><th style="padding:8px 10px;color:#fff;text-align:center">Peso</th><th style="padding:8px 10px;color:#fff;text-align:center">Desconto</th></tr>
+      <tr style="background:#fff"><td style="padding:7px 10px">1º — Abertura e identificação</td><td style="padding:7px 10px;text-align:center;font-weight:600;color:var(--g)">10</td><td style="padding:7px 10px;text-align:center;font-weight:600;color:var(--red)">-10</td></tr>
+      <tr style="background:var(--surface)"><td style="padding:7px 10px">2º — Comunicação e postura</td><td style="padding:7px 10px;text-align:center;font-weight:600;color:var(--g)">15</td><td style="padding:7px 10px;text-align:center;font-weight:600;color:var(--red)">-15</td></tr>
+      <tr style="background:#fff"><td style="padding:7px 10px">3º — Tabulação correta</td><td style="padding:7px 10px;text-align:center;font-weight:600;color:var(--g)">15</td><td style="padding:7px 10px;text-align:center;font-weight:600;color:var(--red)">-15</td></tr>
+      <tr style="background:var(--surface)"><td style="padding:7px 10px">4º — Registros e procedimentos</td><td style="padding:7px 10px;text-align:center;font-weight:600;color:var(--g)">15</td><td style="padding:7px 10px;text-align:center;font-weight:600;color:var(--red)">-15</td></tr>
+      <tr style="background:#fff"><td style="padding:7px 10px">5º — Encerramento</td><td style="padding:7px 10px;text-align:center;font-weight:600;color:var(--g)">15</td><td style="padding:7px 10px;text-align:center;font-weight:600;color:var(--red)">-15</td></tr>
+      <tr style="background:var(--surface)"><td style="padding:7px 10px">🔥 — Escrita correta</td><td style="padding:7px 10px;text-align:center;font-weight:700;font-size:15px;color:var(--g)">30</td><td style="padding:7px 10px;text-align:center;font-weight:700;font-size:15px;color:var(--red)">-30</td></tr>
+      <tr style="background:var(--gl)"><td style="padding:8px 10px;font-weight:700;text-align:right">Total</td><td style="padding:8px 10px;text-align:center;font-weight:700;color:var(--g)">100</td><td style="padding:8px 10px;text-align:center;font-weight:700;color:var(--red)">-100</td></tr>
     </table>`},
+    {n:'⚠',t:'Erros críticos — Zeram a monitoria',h:`<div class="s-tip" style="background:var(--redl);border-color:var(--red);color:var(--red);margin-bottom:10px">⚠️ Qualquer um destes erros zera a monitoria automaticamente.</div><ul class="crit-list"><li>Passou informação incorreta ao cliente</li><li>Usou linguagem agressiva por escrito</li><li>Ignorou a mensagem / deixou sem resposta</li><li>Ofereceu desconto fora da regra</li><li>Finalizou sem resolver o problema do cliente</li><li>Enviou boleto inválido e finalizou sem verificar</li></ul>`},
     {n:'📩',t:'Mensagem padrão — Retenção de cancelamento',h:`<p class="s-p" style="margin-bottom:8px">Quando o cliente solicitar cancelamento, envie esta mensagem:</p>
     <div class="email-box">
       <div class="eb" style="font-size:13px;line-height:1.8">
         O cancelamento é realizado apenas por meio de nossa Central de Atendimento. Para entrar em contato, você pode ligar para este mesmo número por meio do WhatsApp, onde receberá atendimento.<br><br>
         Importante lembrar que, após o cancelamento:<br>
         1. Seus cupons para o cruzeiro serão cancelados;<br>
-        2. Seu cadastro no Clube de Benefícios será encerrado — incluindo descontos em farmácias, cinemas, restaurantes e muito mais;<br>
-        3. Perderá o benefício do desconto na sua conta de energia;<br>
-        4. Perderá o acesso ao aplicativo iGreen, onde é possível consultar e baixar suas faturas.
+        2. Seu cadastro no Clube de Benefícios será encerrado;<br>
+        3. Perderá o benefício do desconto na sua conta de energia.
       </div>
     </div>
     <p style="font-size:11px;color:var(--faint);margin-top:8px;text-align:right">✍️ Créditos: Eduarda Sanqueta e Cauã Alves</p>`},
